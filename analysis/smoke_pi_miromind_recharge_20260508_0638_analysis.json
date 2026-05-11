@@ -1,0 +1,154 @@
+{
+  "job_dir": "jobs/smoke_pi_miromind_recharge_20260508_0638",
+  "harbor_job_result": {
+    "id": "7a30706c-6a17-4575-b4db-c9a24d797b2d",
+    "started_at": "2026-05-08T06:38:21.716252",
+    "finished_at": "2026-05-08T06:56:33.043086",
+    "n_total_trials": 1,
+    "stats": {
+      "n_trials": 1,
+      "n_errors": 0,
+      "evals": {
+        "pi-novita__mirothinker-1-7-deepresearch__swe-bench-swe-bench-verified": {
+          "n_trials": 1,
+          "n_errors": 0,
+          "metrics": [],
+          "reward_stats": {
+            "reward": {
+              "0.0": [
+                "django__django-12406__YTXxCnr"
+              ]
+            }
+          },
+          "exception_stats": {}
+        }
+      }
+    }
+  },
+  "performance": {
+    "n_trials": 1,
+    "n_errors": 0,
+    "completed_without_exception": 1,
+    "resolved_count_assuming_reward_1": 0,
+    "resolved_rate_assuming_reward_1": 0.0,
+    "mean_reward": 0.0,
+    "reward_distribution": {
+      "reward": {
+        "0.0": 1
+      }
+    },
+    "exception_distribution": {}
+  },
+  "trace_lengths": {
+    "sharegpt_messages": {
+      "count": 1,
+      "mean": 4.0,
+      "median": 4,
+      "min": 4,
+      "max": 4
+    },
+    "sharegpt_chars": {
+      "count": 1,
+      "mean": 8724.0,
+      "median": 8724,
+      "min": 8724,
+      "max": 8724
+    },
+    "atif_steps": {
+      "count": 1,
+      "mean": 3.0,
+      "median": 3,
+      "min": 3,
+      "max": 3
+    }
+  },
+  "pi": {
+    "system_prompt": "You are Pi, a terminal-based software engineering agent running inside a Harbor SWE-Bench task sandbox.\n\nGoal:\n- Modify the repository in the current working directory so the benchmark issue is fixed.\n- Prefer small, targeted changes. Do not change tests unless the task explicitly requires it.\n- Inspect the repository before editing. Run relevant tests when practical.\n- Leave the final state in the working tree; Harbor will run the verifier after you exit.\n\nOperational constraints:\n- You may use Pi's read, write, edit, bash, grep, find, and ls tools.\n- Do not ask the user for clarification during benchmark execution.\n- Do not exfiltrate secrets or print environment variables containing API keys.\n- Keep a concise final message summarizing changed files and verification commands.\n",
+    "system_prompt_variants": 1,
+    "tool_call_rounds": {
+      "count": 1,
+      "mean": 0.0,
+      "median": 0,
+      "min": 0,
+      "max": 0
+    },
+    "tool_calls_per_trial": {
+      "count": 1,
+      "mean": 0.0,
+      "median": 0,
+      "min": 0,
+      "max": 0
+    },
+    "tool_calls_total": 0,
+    "tool_error_count": 0,
+    "tool_name_counts": {},
+    "tool_argument_chars": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "max": null
+    },
+    "tool_observation_chars": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "max": null
+    },
+    "tool_name_stats": {}
+  },
+  "tokens": {
+    "input": {
+      "count": 1,
+      "mean": 13263156.0,
+      "median": 13263156,
+      "min": 13263156,
+      "max": 13263156
+    },
+    "output": {
+      "count": 1,
+      "mean": 64827.0,
+      "median": 64827,
+      "min": 64827,
+      "max": 64827
+    },
+    "cache": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "max": null
+    }
+  },
+  "timing": {
+    "trial_duration_sec": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "max": null
+    }
+  },
+  "trials": [
+    {
+      "trial_name": "django__django-12406__YTXxCnr",
+      "task_name": "swe-bench/django__django-12406",
+      "reward": {
+        "reward": 0.0
+      },
+      "exception": null,
+      "duration_sec": null,
+      "sharegpt_path": "jobs/smoke_pi_miromind_recharge_20260508_0638/django__django-12406__YTXxCnr/agent/sharegpt.json",
+      "trajectory_path": "jobs/smoke_pi_miromind_recharge_20260508_0638/django__django-12406__YTXxCnr/agent/trajectory.json",
+      "sharegpt_messages": 4,
+      "sharegpt_chars": 8724,
+      "trajectory_steps": 3,
+      "tool_rounds": 0,
+      "tool_calls": 0,
+      "input_tokens": 13263156,
+      "output_tokens": 64827,
+      "cache_tokens": null
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "old_trial": "django__django-11734__WzHQBej",
+    "task": "swe-bench/django__django-11734",
+    "reward": "<none>",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-13344__W5YhphG",
+    "task": "swe-bench/django__django-13344",
+    "reward": "<none>",
+    "exception": "LocalProtocolError: Invalid input ConnectionInputs.RECV_PING in state ConnectionState.CLOSED"
+  },
+  {
+    "old_trial": "astropy__astropy-14369__ykuvG8P",
+    "task": "swe-bench/astropy__astropy-14369",
+    "reward": "<none>",
+    "exception": "AddTestsDirError: Failed to add tests directory to environment."
+  },
+  {
+    "old_trial": "django__django-13406__AJEW3DE",
+    "task": "swe-bench/django__django-13406",
+    "reward": "<none>",
+    "exception": "AddTestsDirError: Failed to add tests directory to environment."
+  },
+  {
+    "old_trial": "sympy__sympy-13852__CFG4PWa",
+    "task": "swe-bench/sympy__sympy-13852",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-16263__aoFhzNS",
+    "task": "swe-bench/django__django-16263",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "pytest-dev__pytest-6197__jK5E8zh",
+    "task": "swe-bench/pytest-dev__pytest-6197",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-14017__pwNByUS",
+    "task": "swe-bench/django__django-14017",
+    "reward": "<none>",
+    "exception": "BuildException: 500: Error when adding tag 'default' to build: timeout: context deadline exceeded"
+  },
+  {
+    "old_trial": "sympy__sympy-23413__rR8pZz5",
+    "task": "swe-bench/sympy__sympy-23413",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "scikit-learn__scikit-learn-13124__QC6zgS2",
+    "task": "swe-bench/scikit-learn__scikit-learn-13124",
+    "reward": "<none>",
+    "exception": "BuildException: 500: Error when adding tag 'default' to build: timeout: context deadline exceeded"
+  },
+  {
+    "old_trial": "sphinx-doc__sphinx-11510__tadQMd8",
+    "task": "swe-bench/sphinx-doc__sphinx-11510",
+    "reward": "<none>",
+    "exception": "AddTestsDirError: Failed to add tests directory to environment."
+  },
+  {
+    "old_trial": "sympy__sympy-22456__NUmQm7k",
+    "task": "swe-bench/sympy__sympy-22456",
+    "reward": "1.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-15128__XG9FEt9",
+    "task": "swe-bench/django__django-15128",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-11555__vfvdRyt",
+    "task": "swe-bench/django__django-11555",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-11087__azf76bh",
+    "task": "swe-bench/django__django-11087",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-11433__mQMVvgE",
+    "task": "swe-bench/django__django-11433",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-15022__vtzDbFo",
+    "task": "swe-bench/django__django-15022",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "django__django-15554__SQp6EmB",
+    "task": "swe-bench/django__django-15554",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "sympy__sympy-19040__rCUcJjw",
+    "task": "swe-bench/sympy__sympy-19040",
+    "reward": "1.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "matplotlib__matplotlib-26208__wwHK9LF",
+    "task": "swe-bench/matplotlib__matplotlib-26208",
+    "reward": "0.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  },
+  {
+    "old_trial": "sympy__sympy-13878__eKLBEzq",
+    "task": "swe-bench/sympy__sympy-13878",
+    "reward": "1.0",
+    "exception": "AgentTimeoutError: Agent execution timed out after 1800.0 seconds"
+  }
+]

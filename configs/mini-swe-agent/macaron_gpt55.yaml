@@ -1,0 +1,10 @@
+model:
+  model_class: litellm_response
+  model_name: gpt-5.5
+  cost_tracking: ignore_errors
+  model_kwargs:
+    custom_llm_provider: openai
+    api_base: https://pi-api.macaron.xin
+    drop_params: true
+    instructions: "You are mini-SWE-agent. Use the bash tool to solve the user's software engineering task."
+    temperature: 0.0
