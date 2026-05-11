@@ -2,7 +2,7 @@
 
 Runs SWE-Bench Verified with:
 
-- Novita, MiroMind, or Macaron GPT 5.5 as backend model providers.
+- Novita, MiroMind, Macaron GPT 5.5, or Tinker as backend model providers.
 - Pi or mini-SWE-agent as the coding agent layer.
 - Harbor as the benchmark harness.
 - E2B as the sandbox provider with concurrency 10 by default.
@@ -38,6 +38,7 @@ Set `LLM_PROVIDER` to choose the backend while keeping the same Pi agent:
 - `LLM_PROVIDER=novita` uses `NOVITA_API_KEY`, `NOVITA_BASE_URL`, and `NOVITA_MODEL`.
 - `LLM_PROVIDER=miromind` uses `MIROMIND_API_KEY`, `MIROMIND_BASE_URL`, and `MIROMIND_MODEL`.
 - `LLM_PROVIDER=macaron` uses `MACARON_API_KEY`, `MACARON_BASE_URL`, and `MACARON_MODEL`.
+- `LLM_PROVIDER=tinker` uses `TINKER_API_KEY`, `TINKER_BASE_URL`, and `TINKER_MODEL`.
 
 For MiroMind 1.7 deep research:
 
@@ -53,6 +54,28 @@ For Macaron GPT 5.5:
 LLM_PROVIDER=macaron
 MACARON_BASE_URL=https://pi-api.macaron.xin
 MACARON_MODEL=gpt-5.5
+```
+
+For Tinker baseline or sampler weights:
+
+```bash
+LLM_PROVIDER=tinker
+TINKER_BASE_URL=https://tinker.thinkingmachines.dev/services/tinker-prod/oai/api/v1
+TINKER_MODEL=nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16:peft:262144
+TINKER_CONTEXT_WINDOW=262144
+TINKER_MAX_TOKENS=32000
+```
+
+Use the SFT sampler checkpoint as the test group by swapping only `TINKER_MODEL`:
+
+```bash
+TINKER_MODEL=tinker://cb03316c-2b5c-50bb-9ded-5267b1e936d7:train:0/sampler_weights/final
+```
+
+Check both Tinker models against the OpenAI-compatible completions endpoint:
+
+```bash
+python scripts/check_tinker_models.py
 ```
 
 The Macaron endpoint has been configured for the OpenAI Responses API shape. For mini-SWE-agent's standalone CLI wrapper, the project config is:
@@ -81,6 +104,13 @@ Run the same Harbor/E2B pipeline with mini-SWE-agent and Macaron GPT 5.5:
 
 ```bash
 AGENT_TYPE=mini LLM_PROVIDER=macaron python scripts/run_benchmark.py --n-tasks 1 --job-name smoke_mini_macaron_gpt55
+```
+
+Run the Pi agent through Harbor/E2B with Tinker:
+
+```bash
+AGENT_TYPE=pi LLM_PROVIDER=tinker TINKER_MODEL=nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16:peft:262144 python scripts/run_benchmark.py --job-name full_pi_tinker_baseline
+AGENT_TYPE=pi LLM_PROVIDER=tinker TINKER_MODEL=tinker://cb03316c-2b5c-50bb-9ded-5267b1e936d7:train:0/sampler_weights/final python scripts/run_benchmark.py --job-name full_pi_tinker_sft
 ```
 
 Full SWE-Bench Verified run:

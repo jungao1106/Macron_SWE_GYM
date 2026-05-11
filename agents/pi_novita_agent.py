@@ -241,7 +241,7 @@ class PiNovitaAgent(BaseInstalledAgent):
         return {name: os.environ[name] for name in required}
 
     def _models_config(self, env: dict[str, str]) -> dict[str, Any]:
-        openai_compat = {
+        openai_compat: dict[str, Any] = {
             "supportsStore": False,
             "supportsDeveloperRole": False,
             "supportsReasoningEffort": False,
@@ -249,12 +249,18 @@ class PiNovitaAgent(BaseInstalledAgent):
             "maxTokensField": "max_tokens",
             "requiresToolResultName": False,
             "requiresAssistantAfterToolResult": False,
-            "requiresThinkingAsText": True,
+            "requiresThinkingAsText": False,
             "requiresReasoningContentOnAssistantMessages": False,
-            "thinkingFormat": "zai",
             "supportsStrictMode": False,
             "supportsLongCacheRetention": False,
         }
+        if self.provider_name == "novita":
+            openai_compat.update(
+                {
+                    "requiresThinkingAsText": True,
+                    "thinkingFormat": "zai",
+                }
+            )
         return {
             "providers": {
                 self.provider_name: {
