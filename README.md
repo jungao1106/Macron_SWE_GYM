@@ -15,6 +15,74 @@ Agent traces are saved per trial as:
 - `agent/trajectory.json`: Harbor ATIF trajectory.
 - `agent/pi-metadata.json`: model, provider, Pi system prompt, and trace metadata.
 
+## Workflow
+
+This repo is a thin experiment runner around Harbor. The usual flow is:
+
+1. Configure runtime defaults in `.env`.
+   This chooses the agent (`AGENT_TYPE`), model provider (`LLM_PROVIDER`), provider credentials, E2B namespace, concurrency, and default dataset.
+
+2. Start a job with `scripts/run_benchmark.py`.
+   The script loads `.env`, applies any CLI overrides such as `--job-name`, `--n-tasks`, and `--concurrency`, then builds a Harbor `JobConfig`.
+
+3. Save the exact job config under `configs/<job-name>.json`.
+   These files are run snapshots. They record the model, agent, dataset, E2B settings, timeout settings, and concurrency used for that job. They are useful for audit and reproducibility, but the normal entry point is still `scripts/run_benchmark.py`.
+
+4. Harbor resolves SWE-Bench tasks from the dataset.
+   Tasks are cached under `.cache/harbor_tasks/`. Each task contains the issue instruction, solution reference, tests, and environment Dockerfile.
+
+5. Harbor creates one trial per task under `jobs/<job-name>/<trial-name>/`.
+   Each trial gets its own config, sandbox, agent logs, verifier logs, result file, and trace files.
+
+6. `environments/e2b_swebench.py` creates or reuses an E2B sandbox.
+   The adapter prefers Pi-preinstalled templates ending in `__${E2B_PI_TEMPLATE_SUFFIX}`. If a matching Pi template exists, it avoids reinstalling Pi inside the sandbox. If it does not exist, it can build a task template from the task Dockerfile.
+
+7. The configured agent runs inside the E2B sandbox.
+   For `AGENT_TYPE=pi`, Harbor calls `agents.pi_novita_agent:PiNovitaAgent`, which writes Pi's provider config to `~/.pi/agent/models.json` and runs `pi --print`. For `AGENT_TYPE=mini`, Harbor calls `agents.mini_swe_agent:MiniSweAgent`.
+
+8. Harbor runs the verifier.
+   The verifier checks the patched repository in the sandbox and writes rewards, stdout, reports, and the trial result.
+
+9. Runtime progress is written to `logs/<job-name>.log` and optional shell output is written to `run_logs/<job-name>.out`.
+   `scripts/monitor_benchmark_job.sh <job-name>` summarizes active progress from the job directory.
+
+10. After the job finishes, run `scripts/analyze_results.py`.
+    Analysis outputs go to `analysis/<job>_analysis.json` and `analysis/<job>_analysis.md`.
+
+The core data path looks like this:
+
+```text
+.env + CLI args
+  -> scripts/run_benchmark.py
+  -> configs/<job-name>.json
+  -> Harbor Job
+  -> .cache/harbor_tasks/<task>
+  -> E2B sandbox via environments/e2b_swebench.py
+  -> agent adapter in agents/
+  -> jobs/<job-name>/<trial-name>/
+  -> logs/<job-name>.log and run_logs/<job-name>.out
+  -> analysis/<job>_analysis.*
+```
+
+## Directory Map
+
+- `.env`: local secrets and default runtime settings. Do not commit real keys.
+- `.env.example`: safe template for expected environment variables.
+- `scripts/run_benchmark.py`: main Harbor/E2B runner.
+- `scripts/check_*`: provider endpoint smoke checks.
+- `scripts/analyze_results.py`: summarizes Harbor/Pi jobs into JSON and Markdown.
+- `scripts/analyze_mini_results.py`: summarizes mini-SWE-agent style outputs.
+- `scripts/monitor_benchmark_job.sh`: lightweight progress monitor for a running job.
+- `agents/`: Harbor installed-agent adapters.
+- `environments/`: Harbor environment adapters, including the E2B SWE-Bench template logic.
+- `configs/`: generated job config snapshots.
+- `jobs/`: full trial outputs, traces, verifier reports, rewards, and final job results.
+- `logs/`: structured progress logs written by `run_benchmark.py`.
+- `run_logs/`: shell stdout/stderr captures when jobs are launched in the background.
+- `analysis/`: post-run reports generated from `jobs/`.
+- `.cache/harbor_tasks/`: downloaded and prepared SWE-Bench task bundles.
+- `traces/`: standalone mini-SWE-agent traces.
+
 ## Environment
 
 The conda environment name is `marcronv1`.
