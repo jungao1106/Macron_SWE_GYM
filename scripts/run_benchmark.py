@@ -12,6 +12,11 @@ from dotenv import load_dotenv
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from providers import ProviderSpec, resolve_provider
+
 DEFAULT_DATASET = "swe-bench/swe-bench-verified"
 DEFAULT_PROVIDER = "novita"
 DEFAULT_AGENT_TYPE = "pi"
@@ -51,20 +56,23 @@ def _provider() -> str:
     return os.getenv("LLM_PROVIDER", DEFAULT_PROVIDER).strip().lower()
 
 
-def _provider_env_name(provider: str, suffix: str) -> str:
-    return f"{provider.upper()}_{suffix}"
-
-
-def _provider_env(provider: str, suffix: str) -> str:
-    return os.environ[_provider_env_name(provider, suffix)]
-
-
-def _provider_model_name(provider: str) -> str:
-    return f"{provider}/{_provider_env(provider, 'MODEL')}"
+def _provider_spec() -> ProviderSpec:
+    return resolve_provider(_provider())
 
 
 def _provider_int_env(provider: str, suffix: str, default: str) -> int:
-    return int(os.getenv(_provider_env_name(provider, suffix), default))
+    return int(os.getenv(f"{provider.upper()}_{suffix}", default))
+
+
+def _float_env(name: str, default: str) -> float:
+    return float(os.getenv(name, default))
+
+
+def _optional_float_env(name: str) -> float | None:
+    value = os.getenv(name)
+    if value is None or value.strip() == "":
+        return None
+    return float(value)
 
 
 def _agent_type() -> str:
@@ -73,21 +81,20 @@ def _agent_type() -> str:
 
 def _agent_config(
     args: argparse.Namespace,
-    provider: str,
-    model_name: str,
+    provider: ProviderSpec,
 ) -> Any:
     from harbor.models.trial.config import AgentConfig
 
     common_kwargs = {
-        "provider_name": provider,
-        "api_key_env": _provider_env_name(provider, "API_KEY"),
-        "base_url_env": _provider_env_name(provider, "BASE_URL"),
-        "model_env": _provider_env_name(provider, "MODEL"),
+        "provider_name": provider.name,
+        "api_key_env": provider.api_key_env,
+        "base_url_env": provider.base_url_env,
+        "model_env": provider.model_env,
     }
     if args.agent_type == "pi":
         return AgentConfig(
             import_path="agents.pi_novita_agent:PiNovitaAgent",
-            model_name=model_name,
+            model_name=provider.model_name,
             override_setup_timeout_sec=args.agent_setup_timeout_sec,
             override_timeout_sec=args.agent_timeout_sec,
             kwargs={
@@ -96,15 +103,14 @@ def _agent_config(
                 "model_max_tokens": args.model_max_tokens,
                 "thinking": args.thinking,
                 "tools": args.tools,
+                "openai_compat": provider.pi_openai_compat,
             },
         )
     if args.agent_type == "mini":
-        model_class = args.mini_model_class or None
-        if model_class is None:
-            model_class = "litellm_response" if provider == "macaron" else "litellm"
+        model_class = args.mini_model_class or provider.default_mini_model_class
         return AgentConfig(
             import_path="agents.mini_swe_agent:MiniSweAgent",
-            model_name=model_name,
+            model_name=provider.model_name,
             override_setup_timeout_sec=args.agent_setup_timeout_sec,
             override_timeout_sec=args.agent_timeout_sec,
             kwargs={
@@ -115,6 +121,11 @@ def _agent_config(
                 "cost_limit": args.mini_cost_limit,
                 "command_timeout_sec": args.mini_command_timeout_sec,
                 "temperature": args.temperature,
+                "request_timeout_sec": args.mini_request_timeout_sec,
+                "model_kwargs": provider.mini_kwargs(
+                    temperature=args.temperature,
+                    request_timeout_sec=args.mini_request_timeout_sec,
+                ),
             },
         )
     raise ValueError(f"Unsupported agent type: {args.agent_type}")
@@ -127,8 +138,7 @@ def build_config(args: argparse.Namespace) -> Any:
     from harbor.models.trial.config import EnvironmentConfig
 
     dataset_name, dataset_ref = _parse_dataset(args.dataset)
-    provider = _provider()
-    model_name = _provider_model_name(provider)
+    provider = _provider_spec()
 
     dataset_kwargs: dict[str, Any] = {
         "name": dataset_name,
@@ -162,9 +172,7 @@ def build_config(args: argparse.Namespace) -> Any:
             override_storage_mb=args.override_storage_mb,
             env={
                 "LLM_PROVIDER": "${LLM_PROVIDER}",
-                _provider_env_name(provider, "API_KEY"): f"${{{_provider_env_name(provider, 'API_KEY')}}}",
-                _provider_env_name(provider, "BASE_URL"): f"${{{_provider_env_name(provider, 'BASE_URL')}}}",
-                _provider_env_name(provider, "MODEL"): f"${{{_provider_env_name(provider, 'MODEL')}}}",
+                **provider.env_mapping(),
             },
             kwargs={
                 "template_namespace": args.e2b_template_namespace,
@@ -173,7 +181,7 @@ def build_config(args: argparse.Namespace) -> Any:
                 "sandbox_timeout_sec": args.e2b_sandbox_timeout_sec,
             },
         ),
-        agents=[_agent_config(args, provider, model_name)],
+        agents=[_agent_config(args, provider)],
         datasets=[DatasetConfig(**dataset_kwargs)],
         metrics=[MetricConfig(type=MetricType.MEAN)],
     )
@@ -207,7 +215,7 @@ async def run_job(args: argparse.Namespace) -> Path:
         f"pi_template_suffix={args.e2b_pi_template_suffix or '<disabled>'} "
         f"sandbox_timeout_sec={min(args.e2b_sandbox_timeout_sec, 3600)} "
         f"concurrency={args.concurrency} "
-        f"model={_provider_model_name(_provider())}",
+        f"model={_provider_spec().model_name}",
         log_file=log_file,
     )
     _log(f"config={config_path}", log_file=log_file)
@@ -321,13 +329,21 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--debug", action="store_true")
-    parser.add_argument("--timeout-multiplier", type=float, default=1.0)
-    parser.add_argument("--agent-timeout-multiplier", type=float, default=None)
-    parser.add_argument("--verifier-timeout-multiplier", type=float, default=None)
-    parser.add_argument("--agent-setup-timeout-multiplier", type=float, default=2.0)
-    parser.add_argument("--environment-build-timeout-multiplier", type=float, default=2.0)
-    parser.add_argument("--agent-setup-timeout-sec", type=float, default=1200.0)
-    parser.add_argument("--agent-timeout-sec", type=float, default=None)
+    parser.add_argument("--timeout-multiplier", type=float, default=_float_env("TIMEOUT_MULTIPLIER", "1.0"))
+    parser.add_argument("--agent-timeout-multiplier", type=float, default=_optional_float_env("AGENT_TIMEOUT_MULTIPLIER"))
+    parser.add_argument("--verifier-timeout-multiplier", type=float, default=_optional_float_env("VERIFIER_TIMEOUT_MULTIPLIER"))
+    parser.add_argument(
+        "--agent-setup-timeout-multiplier",
+        type=float,
+        default=_float_env("AGENT_SETUP_TIMEOUT_MULTIPLIER", "2.0"),
+    )
+    parser.add_argument(
+        "--environment-build-timeout-multiplier",
+        type=float,
+        default=_float_env("ENVIRONMENT_BUILD_TIMEOUT_MULTIPLIER", "2.0"),
+    )
+    parser.add_argument("--agent-setup-timeout-sec", type=float, default=_float_env("AGENT_SETUP_TIMEOUT_SEC", "1200"))
+    parser.add_argument("--agent-timeout-sec", type=float, default=_optional_float_env("AGENT_TIMEOUT_SEC"))
     parser.add_argument("--override-cpus", type=int, default=None)
     parser.add_argument("--override-memory-mb", type=int, default=None)
     parser.add_argument("--override-storage-mb", type=int, default=None)
@@ -364,6 +380,12 @@ def parse_args() -> argparse.Namespace:
         default=int(os.getenv("MINI_COMMAND_TIMEOUT_SEC", "60")),
     )
     parser.add_argument(
+        "--mini-request-timeout-sec",
+        type=float,
+        default=_float_env("MINI_REQUEST_TIMEOUT_SEC", "300"),
+        help="Timeout in seconds for mini-SWE-agent model API calls. Use 0 to leave unset.",
+    )
+    parser.add_argument(
         "--temperature",
         type=float,
         default=float(os.getenv("MODEL_TEMPERATURE", "0")),
@@ -373,20 +395,17 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     load_dotenv(ROOT / ".env", override=False)
-    provider = _provider()
+    provider = _provider_spec()
     _require_env(
         [
             "LLM_PROVIDER",
-            _provider_env_name(provider, "API_KEY"),
-            _provider_env_name(provider, "BASE_URL"),
-            _provider_env_name(provider, "MODEL"),
+            *provider.required_env(),
             "E2B_API_KEY",
         ]
     )
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
     args = parse_args()
-    provider = _provider()
     asyncio.run(run_job(args))
 
 

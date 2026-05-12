@@ -2,6 +2,7 @@ import json
 import os
 import shlex
 import asyncio
+import base64
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -36,6 +37,15 @@ Operational constraints:
 - Do not ask the user for clarification during benchmark execution.
 - Do not exfiltrate secrets or print environment variables containing API keys.
 - When finished, run exactly: echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT
+"""
+
+MINI_TEXTBASED_SYSTEM_PROMPT = MINI_SYSTEM_PROMPT + """
+Bash action format:
+- Every assistant response must contain exactly one bash command in this fenced format:
+```mswea_bash_command
+command
+```
+- Do not call tools through JSON/function-call syntax in this mode.
 """
 
 
@@ -154,6 +164,13 @@ def _safe_shell_json(value: dict[str, Any]) -> str:
     return shlex.quote(json.dumps(value, ensure_ascii=False, indent=2))
 
 
+def _base64_chunks(text: str, chunk_size: int = 60_000) -> list[str]:
+    """Return shell-safe base64 chunks with decoder-friendly boundaries."""
+    chunk_size -= chunk_size % 4
+    encoded = base64.b64encode(text.encode()).decode()
+    return [encoded[index : index + chunk_size] for index in range(0, len(encoded), chunk_size)]
+
+
 def _message_content_text(content: Any) -> str:
     if isinstance(content, str):
         return content
@@ -196,7 +213,9 @@ class MiniSweAgent(BaseInstalledAgent):
         step_limit: int = 250,
         cost_limit: float = 0.0,
         command_timeout_sec: int = 60,
+        request_timeout_sec: float | None = None,
         temperature: float = 0.0,
+        model_kwargs: dict[str, Any] | None = None,
         *args: Any,
         **kwargs: Any,
     ):
@@ -210,7 +229,9 @@ class MiniSweAgent(BaseInstalledAgent):
         self.step_limit = step_limit
         self.cost_limit = cost_limit
         self.command_timeout_sec = command_timeout_sec
+        self.request_timeout_sec = request_timeout_sec
         self.temperature = temperature
+        self.model_kwargs = model_kwargs or {}
 
     @staticmethod
     def name() -> str:
@@ -249,22 +270,26 @@ class MiniSweAgent(BaseInstalledAgent):
     def _config(self, env: dict[str, str]) -> dict[str, Any]:
         model_kwargs: dict[str, Any] = {
             "drop_params": True,
-            "temperature": self.temperature,
+            "custom_llm_provider": "openai",
+            "api_base": env[self.base_url_env],
         }
-        if self.provider_name == "macaron":
-            model_kwargs.update(
-                {
-                    "custom_llm_provider": "openai",
-                    "api_base": env[self.base_url_env],
-                    "instructions": (
-                        "You are mini-SWE-agent. Use the bash tool to solve the user's "
-                        "software engineering task."
-                    ),
-                }
+        model_kwargs.update(self.model_kwargs)
+        if self.request_timeout_sec and "timeout" not in model_kwargs:
+            model_kwargs["timeout"] = self.request_timeout_sec
+        if self.temperature is not None and "temperature" not in model_kwargs:
+            model_kwargs["temperature"] = self.temperature
+        if self.provider_name == "macaron" and "instructions" not in model_kwargs:
+            model_kwargs["instructions"] = (
+                "You are mini-SWE-agent. Use the bash tool to solve the user's "
+                "software engineering task."
             )
         return {
             "agent": {
-                "system_template": MINI_SYSTEM_PROMPT,
+                "system_template": (
+                    MINI_TEXTBASED_SYSTEM_PROMPT
+                    if self.model_class == "litellm_textbased"
+                    else MINI_SYSTEM_PROMPT
+                ),
                 "instance_template": MINI_INSTANCE_TEMPLATE,
                 "step_limit": self.step_limit,
                 "cost_limit": self.cost_limit,
@@ -283,6 +308,26 @@ class MiniSweAgent(BaseInstalledAgent):
                 "format_error_template": MINI_FORMAT_ERROR_TEMPLATE,
             },
         }
+
+    async def _write_agent_file(
+        self,
+        environment: BaseEnvironment,
+        path: PurePosixPath,
+        text: str,
+        env: dict[str, str],
+    ) -> None:
+        quoted_path = shlex.quote(str(path))
+        await self.exec_as_agent(
+            environment,
+            command=f"mkdir -p {shlex.quote(str(path.parent))} && : > {quoted_path}",
+            env=env,
+        )
+        for chunk in _base64_chunks(text):
+            await self.exec_as_agent(
+                environment,
+                command=f"printf '%s' {shlex.quote(chunk)} | base64 -d >> {quoted_path}",
+                env=env,
+            )
 
     @with_prompt_template
     async def run(
@@ -306,7 +351,7 @@ class MiniSweAgent(BaseInstalledAgent):
             "base_url_env": self.base_url_env,
             "model_env": self.model_env,
             "model_class": self.model_class,
-            "system_prompt": MINI_SYSTEM_PROMPT,
+            "system_prompt": config["agent"]["system_template"],
         }
 
         instruction_path = PurePosixPath(EnvironmentPaths.agent_dir / self._INSTRUCTION_FILENAME)
@@ -358,13 +403,11 @@ class MiniSweAgent(BaseInstalledAgent):
         )
         (self.logs_dir / self._STDERR_FILENAME).write_text("")
 
-        await self.exec_as_agent(
+        await self._write_agent_file(
             environment,
-            command=(
-                f"printf '%s\\n' {_safe_shell_json(mini_traj)} "
-                f"> {shlex.quote(str(EnvironmentPaths.agent_dir / self._MINI_TRAJECTORY_FILENAME))}"
-            ),
-            env=env,
+            PurePosixPath(EnvironmentPaths.agent_dir / self._MINI_TRAJECTORY_FILENAME),
+            json.dumps(mini_traj, ensure_ascii=False, indent=2) + "\n",
+            env,
         )
 
     def _mini_trajectory(self) -> dict[str, Any]:

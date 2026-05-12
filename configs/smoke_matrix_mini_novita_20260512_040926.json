@@ -1,5 +1,5 @@
 {
-  "job_name": "rerun_errors_pi_novita_20260508_0958",
+  "job_name": "smoke_matrix_mini_novita_20260512_040926",
   "jobs_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/jobs",
   "n_attempts": 1,
   "timeout_multiplier": 1.0,
@@ -8,17 +8,17 @@
   "agent_setup_timeout_multiplier": 2.0,
   "environment_build_timeout_multiplier": 2.0,
   "debug": false,
-  "n_concurrent_trials": 10,
+  "n_concurrent_trials": 1,
   "quiet": false,
   "retry": {
     "max_retries": 0,
     "include_exceptions": null,
     "exclude_exceptions": [
-      "AgentTimeoutError",
+      "RewardFileEmptyError",
       "RewardFileNotFoundError",
       "VerifierOutputParseError",
-      "RewardFileEmptyError",
-      "VerifierTimeoutError"
+      "VerifierTimeoutError",
+      "AgentTimeoutError"
     ],
     "wait_multiplier": 1.0,
     "min_wait_sec": 1.0,
@@ -62,9 +62,9 @@
   "agents": [
     {
       "name": null,
-      "import_path": "agents.pi_novita_agent:PiNovitaAgent",
+      "import_path": "agents.mini_swe_agent:MiniSweAgent",
       "model_name": "novita/zai-org/glm-5.1",
-      "override_timeout_sec": 1800.0,
+      "override_timeout_sec": 900.0,
       "override_setup_timeout_sec": 1200.0,
       "max_timeout_sec": null,
       "kwargs": {
@@ -72,10 +72,20 @@
         "api_key_env": "NOVITA_API_KEY",
         "base_url_env": "NOVITA_BASE_URL",
         "model_env": "NOVITA_MODEL",
-        "model_context_window": 128000,
-        "model_max_tokens": 32000,
-        "thinking": "off",
-        "tools": "read,write,edit,bash,grep,find,ls"
+        "model_class": "litellm_textbased",
+        "cost_tracking": "ignore_errors",
+        "step_limit": 250,
+        "cost_limit": 0.0,
+        "command_timeout_sec": 60,
+        "temperature": 0.0,
+        "request_timeout_sec": 300.0,
+        "model_kwargs": {
+          "drop_params": true,
+          "custom_llm_provider": "openai",
+          "api_base": "https://api.novita.ai/v3/openai",
+          "temperature": 0.0,
+          "timeout": 300.0
+        }
       },
       "env": {}
     }
@@ -91,27 +101,7 @@
       "overwrite": false,
       "download_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/.cache/harbor_tasks",
       "task_names": [
-        "swe-bench/django__django-11734",
-        "swe-bench/django__django-13344",
-        "swe-bench/astropy__astropy-14369",
-        "swe-bench/django__django-13406",
-        "swe-bench/sympy__sympy-13852",
-        "swe-bench/django__django-16263",
-        "swe-bench/pytest-dev__pytest-6197",
-        "swe-bench/django__django-14017",
-        "swe-bench/sympy__sympy-23413",
-        "swe-bench/scikit-learn__scikit-learn-13124",
-        "swe-bench/sphinx-doc__sphinx-11510",
-        "swe-bench/sympy__sympy-22456",
-        "swe-bench/django__django-15128",
-        "swe-bench/django__django-11555",
-        "swe-bench/django__django-11087",
-        "swe-bench/django__django-11433",
-        "swe-bench/django__django-15022",
-        "swe-bench/django__django-15554",
-        "swe-bench/sympy__sympy-19040",
-        "swe-bench/matplotlib__matplotlib-26208",
-        "swe-bench/sympy__sympy-13878"
+        "swe-bench/django__django-12406"
       ],
       "exclude_task_names": null,
       "n_tasks": null

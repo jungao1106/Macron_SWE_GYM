@@ -7,4 +7,3 @@ model:
     api_base: https://pi-api.macaron.xin
     drop_params: true
     instructions: "You are mini-SWE-agent. Use the bash tool to solve the user's software engineering task."
-    temperature: 0.0

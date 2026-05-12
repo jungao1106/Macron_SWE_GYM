@@ -1,5 +1,5 @@
 {
-  "job_name": "smoke_unified_mini_macaron_gpt55_r3",
+  "job_name": "full_mini_novita_glm51_20260512_060333",
   "jobs_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/jobs",
   "n_attempts": 1,
   "timeout_multiplier": 1.0,
@@ -8,17 +8,17 @@
   "agent_setup_timeout_multiplier": 2.0,
   "environment_build_timeout_multiplier": 2.0,
   "debug": false,
-  "n_concurrent_trials": 1,
+  "n_concurrent_trials": 15,
   "quiet": false,
   "retry": {
     "max_retries": 0,
     "include_exceptions": null,
     "exclude_exceptions": [
-      "AgentTimeoutError",
-      "VerifierOutputParseError",
       "RewardFileNotFoundError",
+      "VerifierOutputParseError",
+      "VerifierTimeoutError",
       "RewardFileEmptyError",
-      "VerifierTimeoutError"
+      "AgentTimeoutError"
     ],
     "wait_multiplier": 1.0,
     "min_wait_sec": 1.0,
@@ -37,9 +37,9 @@
     "mounts_json": null,
     "env": {
       "LLM_PROVIDER": "${LLM_PROVIDER}",
-      "MACARON_API_KEY": "${MACARON_API_KEY}",
-      "MACARON_BASE_URL": "${MACARON_BASE_URL}",
-      "MACARON_MODEL": "${MACARON_MODEL}"
+      "NOVITA_API_KEY": "${NOVITA_API_KEY}",
+      "NOVITA_BASE_URL": "${NOVITA_BASE_URL}",
+      "NOVITA_MODEL": "${NOVITA_MODEL}"
     },
     "kwargs": {
       "template_namespace": "anchen1011",
@@ -63,21 +63,29 @@
     {
       "name": null,
       "import_path": "agents.mini_swe_agent:MiniSweAgent",
-      "model_name": "macaron/gpt-5.5",
-      "override_timeout_sec": 240.0,
+      "model_name": "novita/zai-org/glm-5.1",
+      "override_timeout_sec": null,
       "override_setup_timeout_sec": 1200.0,
       "max_timeout_sec": null,
       "kwargs": {
-        "provider_name": "macaron",
-        "api_key_env": "MACARON_API_KEY",
-        "base_url_env": "MACARON_BASE_URL",
-        "model_env": "MACARON_MODEL",
-        "model_class": "litellm_response",
+        "provider_name": "novita",
+        "api_key_env": "NOVITA_API_KEY",
+        "base_url_env": "NOVITA_BASE_URL",
+        "model_env": "NOVITA_MODEL",
+        "model_class": "litellm_textbased",
         "cost_tracking": "ignore_errors",
         "step_limit": 250,
         "cost_limit": 0.0,
         "command_timeout_sec": 60,
-        "temperature": 0.0
+        "temperature": 0.0,
+        "request_timeout_sec": 300.0,
+        "model_kwargs": {
+          "drop_params": true,
+          "custom_llm_provider": "openai",
+          "api_base": "https://api.novita.ai/v3/openai",
+          "temperature": 0.0,
+          "timeout": 300.0
+        }
       },
       "env": {}
     }
@@ -94,7 +102,7 @@
       "download_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/.cache/harbor_tasks",
       "task_names": null,
       "exclude_task_names": null,
-      "n_tasks": 1
+      "n_tasks": null
     }
   ],
   "tasks": [],

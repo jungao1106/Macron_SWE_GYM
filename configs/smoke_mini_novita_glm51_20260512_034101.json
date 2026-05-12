@@ -1,5 +1,5 @@
 {
-  "job_name": "full_pi_novita_20260508_0348",
+  "job_name": "smoke_mini_novita_glm51_20260512_034101",
   "jobs_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/jobs",
   "n_attempts": 1,
   "timeout_multiplier": 1.0,
@@ -8,17 +8,17 @@
   "agent_setup_timeout_multiplier": 2.0,
   "environment_build_timeout_multiplier": 2.0,
   "debug": false,
-  "n_concurrent_trials": 15,
+  "n_concurrent_trials": 1,
   "quiet": false,
   "retry": {
     "max_retries": 0,
     "include_exceptions": null,
     "exclude_exceptions": [
-      "AgentTimeoutError",
-      "VerifierOutputParseError",
+      "RewardFileEmptyError",
       "RewardFileNotFoundError",
+      "AgentTimeoutError",
       "VerifierTimeoutError",
-      "RewardFileEmptyError"
+      "VerifierOutputParseError"
     ],
     "wait_multiplier": 1.0,
     "min_wait_sec": 1.0,
@@ -36,6 +36,7 @@
     "suppress_override_warnings": false,
     "mounts_json": null,
     "env": {
+      "LLM_PROVIDER": "${LLM_PROVIDER}",
       "NOVITA_API_KEY": "${NOVITA_API_KEY}",
       "NOVITA_BASE_URL": "${NOVITA_BASE_URL}",
       "NOVITA_MODEL": "${NOVITA_MODEL}"
@@ -61,17 +62,22 @@
   "agents": [
     {
       "name": null,
-      "import_path": "agents.pi_novita_agent:PiNovitaAgent",
+      "import_path": "agents.mini_swe_agent:MiniSweAgent",
       "model_name": "novita/zai-org/glm-5.1",
-      "override_timeout_sec": 1800.0,
+      "override_timeout_sec": null,
       "override_setup_timeout_sec": 1200.0,
       "max_timeout_sec": null,
       "kwargs": {
         "provider_name": "novita",
-        "model_context_window": 128000,
-        "model_max_tokens": 32000,
-        "thinking": "off",
-        "tools": "read,write,edit,bash,grep,find,ls"
+        "api_key_env": "NOVITA_API_KEY",
+        "base_url_env": "NOVITA_BASE_URL",
+        "model_env": "NOVITA_MODEL",
+        "model_class": "litellm",
+        "cost_tracking": "ignore_errors",
+        "step_limit": 250,
+        "cost_limit": 0.0,
+        "command_timeout_sec": 60,
+        "temperature": 0.0
       },
       "env": {}
     }
@@ -88,7 +94,7 @@
       "download_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/.cache/harbor_tasks",
       "task_names": null,
       "exclude_task_names": null,
-      "n_tasks": null
+      "n_tasks": 1
     }
   ],
   "tasks": [],

@@ -33,6 +33,15 @@ Operational constraints:
 - Do not ask the user for clarification during benchmark execution.
 - Do not exfiltrate secrets or print environment variables containing API keys.
 - Keep a concise final message summarizing changed files and verification commands.
+
+Tool argument reminders:
+- read: {"path": "..."} with optional offset/limit.
+- write: {"path": "...", "content": "..."}.
+- edit: {"path": "...", "edits": [{"oldText": "...", "newText": "..."}]}.
+- bash: {"command": "..."}.
+- grep: {"pattern": "..."} with optional path/include.
+- find: {"pattern": "..."}.
+- ls: {} or {"path": "..."}.
 """
 
 
@@ -105,6 +114,361 @@ def _safe_shell_json(value: dict[str, Any]) -> str:
     return shlex.quote(json.dumps(value, ensure_ascii=False, indent=2))
 
 
+def _tinker_tool_call_patch_command() -> str:
+    """Patch Pi's OpenAI streaming provider to parse Tinker XML tool calls."""
+
+    return r"""node <<'HARBOR_TINKER_TOOL_PATCH'
+const fs = require("fs");
+const childProcess = require("child_process");
+const os = require("os");
+const path = require("path");
+
+const marker = "HARBOR_TINKER_XML_TOOLCALL_PATCH_V7";
+const legacyMarker = "HARBOR_TINKER_XML_TOOLCALL_PATCH";
+function logPatch(message) {
+  const line = `[harbor] ${message}`;
+  console.error(line);
+  try {
+    fs.appendFileSync("/logs/agent/tinker-patch.log", line + "\n");
+  }
+  catch {}
+}
+function commandOutput(command) {
+  try {
+    return childProcess.execSync(command, {
+      encoding: "utf8",
+      shell: "/bin/sh",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  }
+  catch {
+    return "";
+  }
+}
+function uniqueExisting(paths) {
+  return [...new Set(paths)].filter((candidate) => {
+    try {
+      return candidate && fs.existsSync(candidate);
+    }
+    catch {
+      return false;
+    }
+  });
+}
+function findProviderPaths() {
+  const npmRoot = commandOutput("npm root -g");
+  const npmPrefix = commandOutput("npm prefix -g");
+  const piBin = commandOutput("command -v pi");
+  logPatch(`toolchain paths: node=${commandOutput("command -v node") || "(missing)"} npm=${commandOutput("command -v npm") || "(missing)"} pi=${piBin || "(missing)"} npmRoot=${npmRoot || "(missing)"}`);
+  const candidates = [];
+  if (npmRoot) {
+    candidates.push(
+      path.join(npmRoot, "@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai/dist/providers/openai-completions.js"),
+      path.join(npmRoot, "@earendil-works/pi-ai/dist/providers/openai-completions.js"),
+      path.join(npmRoot, "@earendil-works/pi-coding-agent/dist/providers/openai-completions.js")
+    );
+  }
+  for (const packageName of ["@earendil-works/pi-ai", "@earendil-works/pi-coding-agent"]) {
+    try {
+      const resolvePaths = [process.cwd(), ...[npmRoot].filter(Boolean)];
+      const packageJson = require.resolve(`${packageName}/package.json`, { paths: resolvePaths });
+      const packageDir = path.dirname(packageJson);
+      candidates.push(path.join(packageDir, "dist/providers/openai-completions.js"));
+      candidates.push(path.join(packageDir, "node_modules/@earendil-works/pi-ai/dist/providers/openai-completions.js"));
+      candidates.push(path.join(packageDir, "../pi-ai/dist/providers/openai-completions.js"));
+    }
+    catch {}
+  }
+  if (piBin) {
+    const realPiBin = fs.realpathSync(piBin);
+    let dir = path.dirname(realPiBin);
+    for (let i = 0; i < 8; i++) {
+      candidates.push(path.join(dir, "node_modules/@earendil-works/pi-ai/dist/providers/openai-completions.js"));
+      candidates.push(path.join(dir, "node_modules/@earendil-works/pi-coding-agent/dist/providers/openai-completions.js"));
+      candidates.push(path.join(dir, "../lib/node_modules/@earendil-works/pi-ai/dist/providers/openai-completions.js"));
+      candidates.push(path.join(dir, "../lib/node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai/dist/providers/openai-completions.js"));
+      candidates.push(path.join(dir, "../lib/node_modules/@earendil-works/pi-coding-agent/dist/providers/openai-completions.js"));
+      dir = path.dirname(dir);
+    }
+  }
+  const roots = uniqueExisting([
+    npmRoot,
+    npmPrefix && path.join(npmPrefix, "lib/node_modules"),
+    piBin && path.dirname(fs.realpathSync(piBin)),
+    path.join(os.homedir(), ".nvm/versions/node"),
+    "/usr/local/lib/node_modules",
+    "/usr/lib/node_modules",
+  ]);
+  for (const root of roots) {
+    try {
+      const output = childProcess.execFileSync(
+        "find",
+        [root, "-name", "openai-completions.js", "-print"],
+        { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }
+      );
+      for (const found of output.split(/\r?\n/)) {
+        if (found.trim()) {
+          candidates.push(found.trim());
+        }
+      }
+    }
+    catch {}
+  }
+  return uniqueExisting(candidates);
+}
+const providerPaths = findProviderPaths();
+if (providerPaths.length === 0) {
+  logPatch("could not find Pi OpenAI provider; skipping Tinker XML tool-call patch");
+  process.exit(0);
+}
+logPatch(`candidate Pi OpenAI providers: ${providerPaths.join(", ")}`);
+for (const providerPath of providerPaths) {
+try {
+let source = fs.readFileSync(providerPath, "utf8");
+const providerPackageJson = (() => {
+  let dir = path.dirname(providerPath);
+  for (let i = 0; i < 8; i++) {
+    const candidate = path.join(dir, "package.json");
+    if (fs.existsSync(candidate)) return candidate;
+    dir = path.dirname(dir);
+  }
+  return "";
+})();
+if (providerPackageJson) {
+  try {
+    const providerPackage = JSON.parse(fs.readFileSync(providerPackageJson, "utf8"));
+    logPatch(`provider package: ${providerPackage.name || "(unknown)"}@${providerPackage.version || "(unknown)"} ${providerPackageJson}`);
+  }
+  catch {}
+}
+const hasFullPatch = source.includes("stringifyTinkerToolArguments") && source.includes("Tool result");
+
+if (!source.includes(marker) && source.includes(legacyMarker) && hasFullPatch) {
+  const oldBlockPattern = "const blockPattern = /<tool_call\\\\b[^>]*>([\\\\s\\\\S]*?)<\\\\/tool_call>/gi;";
+  const newBlockPattern = "const blockPattern = /<tool_call\\\\b[^>]*>([\\\\s\\\\S]*?)(?:<\\\\/tool_call>|$)/gi;";
+  const oldParamPattern = "const paramPattern = /(<parameter\\\\b[^>]*>)([\\\\s\\\\S]*?)<\\\\/parameter>/gi;";
+  const newParamPattern = "const paramPattern = /(<parameter\\\\b[^>]*>)([\\\\s\\\\S]*?)(?:<\\\\/parameter>|$)/gi;";
+  source = source.split(oldBlockPattern).join(newBlockPattern);
+  source = source.split(oldParamPattern).join(newParamPattern);
+  source = source.split("const shorthand = block.match(/<function\\\\s*=\\\\s*([^>\\\\s]+)>/i);").join(
+    "const shorthand = block.match(/<function\\\\s*=\\\\s*([^>\\\\s]+)>?/i);"
+  );
+  source = source.replace(
+    /(\s*)const block = match\[1\];\n(\s*)const shorthand = block\.match\(/,
+    "$1const block = match[1];\n$1const attrName = match[0].match(/^<tool_call\\\\b[^>]*\\\\bname\\\\s*=\\\\s*[\"']?([^\"'\\\\s>]+)/i);\n$2const shorthand = block.match("
+  );
+  source = source.replace(
+    /const name = \(shorthand\?\.\[1\] \|\| wrapped\?\.\[1\] \|\| ""\)\.trim\(\)\.replace\(\/\^\["'\]\|\["'\]\$\/g, ""\);/,
+    'const name = (attrName?.[1] || shorthand?.[1] || wrapped?.[1] || "").trim().replace(/^[\"\']|[\"\']$/g, "");'
+  );
+  source = source.replace(
+    /(\s*)const args = \{\};\n(\s*)const paramPattern = /,
+    "$1let args = {};\n$1const rawBlock = block.trim();\n$1if (!rawBlock.includes(\"<parameter\") && rawBlock.startsWith(\"{\")) {\n$1    try {\n$1        const parsedArgs = JSON.parse(rawBlock);\n$1        if (parsedArgs && typeof parsedArgs === \"object\" && !Array.isArray(parsedArgs)) {\n$1            args = parsedArgs;\n$1        }\n$1    }\n$1    catch {}\n$1}\n$2const paramPattern = "
+  );
+  source = source.replace(
+    "normalizeTinkerXmlToolCalls(output, blocks, textBlock, context, stream, getContentIndex);",
+    "normalizeTinkerXmlToolCalls(output, blocks, blocks.find((block) => block.type === \"text\"), context, stream, getContentIndex);"
+  );
+  source = source.replace(/HARBOR_TINKER_XML_TOOLCALL_PATCH(?:_V\\d+)?/g, marker);
+  fs.writeFileSync(providerPath, source);
+  logPatch(`upgraded Pi Tinker XML tool-call patch at ${providerPath}`);
+}
+else if (!source.includes(marker)) {
+  const helper = `
+// ${marker}: Tinker may stream XML-like tool calls in assistant text.
+function stripTinkerReasoningText(content) {
+    if (typeof content !== "string") {
+        return "";
+    }
+    let text = content.trim();
+    const thinkMatch = text.match(/^\\s*<think\\b[^>]*>([\\s\\S]*?)<\\/think>\\s*/i);
+    if (thinkMatch) {
+        text = text.slice(thinkMatch[0].length).trim();
+    }
+    else {
+        const thinkEnd = text.toLowerCase().indexOf("</think>");
+        if (thinkEnd !== -1) {
+            text = text.slice(thinkEnd + "</think>".length).trim();
+        }
+    }
+    return text;
+}
+function coerceTinkerParameterValue(rawValue) {
+    const value = String(rawValue ?? "").trim();
+    try {
+        return JSON.parse(value);
+    }
+    catch {
+        return value;
+    }
+}
+function parseTinkerXmlToolCalls(content, allowedToolNames) {
+    const text = stripTinkerReasoningText(content);
+    if (!text || !text.includes("<tool_call")) {
+        return { cleanedText: text, toolCalls: [] };
+    }
+    const toolCalls = [];
+    const blockPattern = /<tool_call\\b[^>]*>([\\s\\S]*?)(?:<\\/tool_call>|$)/gi;
+    let match;
+    let index = 0;
+    while ((match = blockPattern.exec(text)) !== null) {
+        const block = match[1];
+        const attrName = match[0].match(/^<tool_call\\b[^>]*\\bname\\s*=\\s*["']?([^"'\\s>]+)/i);
+        const shorthand = block.match(/<function\\s*=\\s*([^>\\s]+)>?/i);
+        const wrapped = block.match(/<function\\b[^>]*>([\\s\\S]*?)<\\/function>/i);
+        const name = (attrName?.[1] || shorthand?.[1] || wrapped?.[1] || "").trim().replace(/^["']|["']$/g, "");
+        if (!name || (allowedToolNames && allowedToolNames.size > 0 && !allowedToolNames.has(name))) {
+            continue;
+        }
+        let args = {};
+        const rawBlock = block.trim();
+        if (!rawBlock.includes("<parameter") && rawBlock.startsWith("{")) {
+            try {
+                const parsedArgs = JSON.parse(rawBlock);
+                if (parsedArgs && typeof parsedArgs === "object" && !Array.isArray(parsedArgs)) {
+                    args = parsedArgs;
+                }
+            }
+            catch {}
+        }
+        const paramPattern = /(<parameter\\b[^>]*>)([\\s\\S]*?)(?:<\\/parameter>|$)/gi;
+        let paramMatch;
+        while ((paramMatch = paramPattern.exec(block)) !== null) {
+            const tag = paramMatch[1];
+            const nameMatch = tag.match(/\\bname\\s*=\\s*["']?([^"'\\s>/]+)/i) || tag.match(/<parameter\\s*=\\s*([^>\\s]+)/i);
+            const paramName = (nameMatch?.[1] || "").trim().replace(/^["']|["']$/g, "");
+            if (paramName) {
+                args[paramName] = coerceTinkerParameterValue(paramMatch[2]);
+            }
+        }
+        toolCalls.push({
+            type: "toolCall",
+            id: \`call_tinker_\${Date.now().toString(36)}_\${index++}_\${Math.random().toString(36).slice(2, 10)}\`,
+            name,
+            arguments: args,
+            partialArgs: JSON.stringify(args),
+        });
+    }
+    let cleanedText = text.replace(blockPattern, "").trim();
+    if (toolCalls.length > 0 && cleanedText.includes("<tool_call")) {
+        cleanedText = cleanedText.slice(0, cleanedText.indexOf("<tool_call")).trim();
+    }
+    return { cleanedText, toolCalls };
+}
+function normalizeTinkerXmlToolCalls(output, blocks, textBlock, context, stream, getContentIndex) {
+    if (output.provider !== "tinker" || !textBlock || textBlock.type !== "text") {
+        return;
+    }
+    const allowedToolNames = new Set((context.tools || []).map((tool) => tool.name));
+    const parsed = parseTinkerXmlToolCalls(textBlock.text, allowedToolNames);
+    if (parsed.toolCalls.length === 0) {
+        return;
+    }
+    textBlock.text = parsed.cleanedText;
+    if (!textBlock.text) {
+        const textIndex = blocks.indexOf(textBlock);
+        if (textIndex !== -1) {
+            blocks.splice(textIndex, 1);
+        }
+    }
+    for (const toolCall of parsed.toolCalls) {
+        blocks.push(toolCall);
+        const contentIndex = getContentIndex(toolCall);
+        stream.push({ type: "toolcall_start", contentIndex, partial: output });
+        const delta = JSON.stringify(toolCall.arguments);
+        stream.push({ type: "toolcall_delta", contentIndex, delta, partial: output });
+    }
+    output.stopReason = "toolUse";
+}
+function stringifyTinkerToolArguments(args) {
+    try {
+        return JSON.stringify(args ?? {}, null, 0);
+    }
+    catch {
+        return String(args ?? {});
+    }
+}
+`;
+
+  const helperAnchor = "function resolveCacheRetention(cacheRetention) {";
+  if (!source.includes(helperAnchor)) {
+    throw new Error("Could not find helper insertion anchor in Pi OpenAI provider");
+  }
+  source = source.replace(helperAnchor, helper + "\n" + helperAnchor);
+
+  const donePushIndex = source.indexOf('stream.push({ type: "done"');
+  if (donePushIndex === -1) {
+    logPatch(`normalization anchor debug around done push: ${source.slice(Math.max(0, source.indexOf("stream.push") - 160), source.indexOf("stream.push") + 260)}`);
+    throw new Error("Could not find Tinker normalization anchor in Pi OpenAI provider");
+  }
+  source = (
+    source.slice(0, donePushIndex)
+    + "normalizeTinkerXmlToolCalls(output, blocks, blocks.find((block) => block.type === \"text\"), context, stream, getContentIndex);\n            "
+    + source.slice(donePushIndex)
+  );
+
+  const historyAnchorPattern = /(\s*)const toolCalls = msg\.content\.filter\(isToolCallBlock\);\n\s*if \(toolCalls\.length > 0\) \{\n\s*assistantMsg\.tool_calls = toolCalls\.map\(\(tc\) => \(\{\n\s*id: tc\.id,\n\s*type: "function"(?: as const)?,\n\s*function: \{\n\s*name: tc\.name,\n\s*arguments: JSON\.stringify\(tc\.arguments\),\n\s*\},\n\s*\}\)\);\n/;
+  if (!historyAnchorPattern.test(source)) {
+    throw new Error("Could not find Tinker tool history anchor in Pi OpenAI provider");
+  }
+  source = source.replace(historyAnchorPattern, (match, indent) => (
+`${indent}const toolCalls = msg.content.filter(isToolCallBlock);
+${indent}if (toolCalls.length > 0) {
+${indent}    if (model.provider === "tinker") {
+${indent}        const tinkerToolTexts = toolCalls.map((tc) => (
+${indent}            "Tool call: " + tc.name + "\\nArguments: " + stringifyTinkerToolArguments(tc.arguments)
+${indent}        ));
+${indent}        assistantMsg.content = [assistantText, ...tinkerToolTexts].filter(Boolean).join("\\n\\n");
+${indent}    }
+${indent}    else {
+${indent}        assistantMsg.tool_calls = toolCalls.map((tc) => ({
+${indent}            id: tc.id,
+${indent}            type: "function",
+${indent}            function: {
+${indent}                name: tc.name,
+${indent}                arguments: JSON.stringify(tc.arguments),
+${indent}            },
+${indent}        }));
+${indent}    }
+`
+  ));
+
+  const toolResultAnchorPattern = /(\s*)const toolResultMsg(?:\s*:\s*[^=]+)? = \{\n\s*role: "tool",\n\s*content: sanitizeSurrogates\(hasText \? textResult : "\(\s*see attached image\s*\)"\),\n\s*tool_call_id: toolMsg\.toolCallId,\n\s*\};/;
+  if (!toolResultAnchorPattern.test(source)) {
+    throw new Error("Could not find Tinker tool result history anchor in Pi OpenAI provider");
+  }
+  source = source.replace(toolResultAnchorPattern, (match, indent) => (
+`${indent}const toolResultMsg = model.provider === "tinker"
+${indent}    ? {
+${indent}        role: "assistant",
+${indent}        content: sanitizeSurrogates("Tool result:\\n" + (hasText ? textResult : "(see attached image)")),
+${indent}    }
+${indent}    : {
+${indent}        role: "tool",
+${indent}        content: sanitizeSurrogates(hasText ? textResult : "(see attached image)"),
+${indent}        tool_call_id: toolMsg.toolCallId,
+${indent}    };`
+  ));
+
+  const toolResultNameAnchor = "                if (compat.requiresToolResultName && toolMsg.toolName) {";
+  const toolResultNameBlock = "                if (model.provider !== \"tinker\" && compat.requiresToolResultName && toolMsg.toolName) {";
+  source = source.replace(toolResultNameAnchor, toolResultNameBlock);
+
+  fs.writeFileSync(providerPath, source);
+  logPatch(`patched Pi OpenAI provider for Tinker XML tool calls at ${providerPath}`);
+}
+else {
+  logPatch(`Pi Tinker XML tool-call patch already present at ${providerPath}`);
+}
+}
+catch (error) {
+  logPatch(`could not patch ${providerPath}: ${error && error.message ? error.message : error}`);
+}
+}
+HARBOR_TINKER_TOOL_PATCH
+"""
+
+
 class PiNovitaAgent(BaseInstalledAgent):
     """Harbor installed-agent adapter that runs Pi against OpenAI-compatible models."""
 
@@ -130,6 +494,7 @@ class PiNovitaAgent(BaseInstalledAgent):
         model_max_tokens: int = 32000,
         thinking: str = "off",
         tools: str = "read,write,edit,bash,grep,find,ls",
+        openai_compat: dict[str, Any] | None = None,
         *args: Any,
         **kwargs: Any,
     ):
@@ -142,6 +507,7 @@ class PiNovitaAgent(BaseInstalledAgent):
         self.model_max_tokens = model_max_tokens
         self.thinking = thinking
         self.tools = tools
+        self.openai_compat = openai_compat
 
     @staticmethod
     def name() -> str:
@@ -254,13 +620,8 @@ class PiNovitaAgent(BaseInstalledAgent):
             "supportsStrictMode": False,
             "supportsLongCacheRetention": False,
         }
-        if self.provider_name == "novita":
-            openai_compat.update(
-                {
-                    "requiresThinkingAsText": True,
-                    "thinkingFormat": "zai",
-                }
-            )
+        if self.openai_compat:
+            openai_compat.update(self.openai_compat)
         return {
             "providers": {
                 self.provider_name: {
@@ -334,9 +695,16 @@ class PiNovitaAgent(BaseInstalledAgent):
 
         heredoc = "HARBOR_PI_PROMPT_EOF"
         system_heredoc = "HARBOR_PI_SYSTEM_EOF"
+        tinker_patch_command = (
+            _tinker_tool_call_patch_command()
+            if self.provider_name == "tinker"
+            else ""
+        )
         command = (
             "set -euo pipefail\n"
             "mkdir -p /logs/agent ~/.pi/agent\n"
+            "if [ -s ~/.nvm/nvm.sh ]; then . ~/.nvm/nvm.sh; fi\n"
+            f"{tinker_patch_command}"
             f"cat > {shlex.quote(str(instruction_path))} <<'{heredoc}'\n"
             f"{instruction}\n"
             f"{heredoc}\n"
@@ -346,7 +714,6 @@ class PiNovitaAgent(BaseInstalledAgent):
             f"printf '%s\\n' {_safe_shell_json(models_config)} > ~/.pi/agent/models.json\n"
             f"cp ~/.pi/agent/models.json {shlex.quote(str(models_path))}\n"
             f"printf '%s\\n' {_safe_shell_json(metadata)} > {shlex.quote(str(metadata_path))}\n"
-            "if [ -s ~/.nvm/nvm.sh ]; then . ~/.nvm/nvm.sh; fi\n"
             "export PI_SKIP_VERSION_CHECK=1\n"
             "export PI_TELEMETRY=0\n"
             "PROMPT=$(cat " + shlex.quote(str(instruction_path)) + ")\n"

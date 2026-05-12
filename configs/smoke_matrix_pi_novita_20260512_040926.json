@@ -1,5 +1,5 @@
 {
-  "job_name": "full_pi_miromind_20260508_0552",
+  "job_name": "smoke_matrix_pi_novita_20260512_040926",
   "jobs_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/jobs",
   "n_attempts": 1,
   "timeout_multiplier": 1.0,
@@ -8,14 +8,14 @@
   "agent_setup_timeout_multiplier": 2.0,
   "environment_build_timeout_multiplier": 2.0,
   "debug": false,
-  "n_concurrent_trials": 15,
+  "n_concurrent_trials": 1,
   "quiet": false,
   "retry": {
     "max_retries": 0,
     "include_exceptions": null,
     "exclude_exceptions": [
-      "AgentTimeoutError",
       "VerifierOutputParseError",
+      "AgentTimeoutError",
       "RewardFileNotFoundError",
       "VerifierTimeoutError",
       "RewardFileEmptyError"
@@ -37,9 +37,9 @@
     "mounts_json": null,
     "env": {
       "LLM_PROVIDER": "${LLM_PROVIDER}",
-      "MIROMIND_API_KEY": "${MIROMIND_API_KEY}",
-      "MIROMIND_BASE_URL": "${MIROMIND_BASE_URL}",
-      "MIROMIND_MODEL": "${MIROMIND_MODEL}"
+      "NOVITA_API_KEY": "${NOVITA_API_KEY}",
+      "NOVITA_BASE_URL": "${NOVITA_BASE_URL}",
+      "NOVITA_MODEL": "${NOVITA_MODEL}"
     },
     "kwargs": {
       "template_namespace": "anchen1011",
@@ -63,19 +63,33 @@
     {
       "name": null,
       "import_path": "agents.pi_novita_agent:PiNovitaAgent",
-      "model_name": "miromind/mirothinker-1-7-deepresearch",
-      "override_timeout_sec": 1800.0,
+      "model_name": "novita/zai-org/glm-5.1",
+      "override_timeout_sec": 900.0,
       "override_setup_timeout_sec": 1200.0,
       "max_timeout_sec": null,
       "kwargs": {
-        "provider_name": "miromind",
-        "api_key_env": "MIROMIND_API_KEY",
-        "base_url_env": "MIROMIND_BASE_URL",
-        "model_env": "MIROMIND_MODEL",
+        "provider_name": "novita",
+        "api_key_env": "NOVITA_API_KEY",
+        "base_url_env": "NOVITA_BASE_URL",
+        "model_env": "NOVITA_MODEL",
         "model_context_window": 128000,
         "model_max_tokens": 32000,
         "thinking": "off",
-        "tools": "read,write,edit,bash,grep,find,ls"
+        "tools": "read,write,edit,bash,grep,find,ls",
+        "openai_compat": {
+          "supportsStore": false,
+          "supportsDeveloperRole": false,
+          "supportsReasoningEffort": false,
+          "supportsUsageInStreaming": false,
+          "maxTokensField": "max_tokens",
+          "requiresToolResultName": false,
+          "requiresAssistantAfterToolResult": false,
+          "requiresThinkingAsText": true,
+          "requiresReasoningContentOnAssistantMessages": false,
+          "supportsStrictMode": false,
+          "supportsLongCacheRetention": false,
+          "thinkingFormat": "zai"
+        }
       },
       "env": {}
     }
@@ -90,7 +104,9 @@
       "registry_path": null,
       "overwrite": false,
       "download_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/.cache/harbor_tasks",
-      "task_names": null,
+      "task_names": [
+        "swe-bench/django__django-12406"
+      ],
       "exclude_task_names": null,
       "n_tasks": null
     }

@@ -1,5 +1,5 @@
 {
-  "job_name": "smoke_unified_mini_macaron_gpt55_r4",
+  "job_name": "smoke_pi_tinker_sft_toolfix_v6d_diag_12907_20260512",
   "jobs_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/jobs",
   "n_attempts": 1,
   "timeout_multiplier": 1.0,
@@ -14,11 +14,11 @@
     "max_retries": 0,
     "include_exceptions": null,
     "exclude_exceptions": [
-      "AgentTimeoutError",
-      "RewardFileEmptyError",
       "VerifierOutputParseError",
       "VerifierTimeoutError",
-      "RewardFileNotFoundError"
+      "AgentTimeoutError",
+      "RewardFileNotFoundError",
+      "RewardFileEmptyError"
     ],
     "wait_multiplier": 1.0,
     "min_wait_sec": 1.0,
@@ -37,9 +37,9 @@
     "mounts_json": null,
     "env": {
       "LLM_PROVIDER": "${LLM_PROVIDER}",
-      "MACARON_API_KEY": "${MACARON_API_KEY}",
-      "MACARON_BASE_URL": "${MACARON_BASE_URL}",
-      "MACARON_MODEL": "${MACARON_MODEL}"
+      "TINKER_API_KEY": "${TINKER_API_KEY}",
+      "TINKER_BASE_URL": "${TINKER_BASE_URL}",
+      "TINKER_MODEL": "${TINKER_MODEL}"
     },
     "kwargs": {
       "template_namespace": "anchen1011",
@@ -62,22 +62,20 @@
   "agents": [
     {
       "name": null,
-      "import_path": "agents.mini_swe_agent:MiniSweAgent",
-      "model_name": "macaron/gpt-5.5",
-      "override_timeout_sec": 240.0,
+      "import_path": "agents.pi_novita_agent:PiNovitaAgent",
+      "model_name": "tinker/tinker://cb03316c-2b5c-50bb-9ded-5267b1e936d7:train:0/sampler_weights/final",
+      "override_timeout_sec": null,
       "override_setup_timeout_sec": 1200.0,
       "max_timeout_sec": null,
       "kwargs": {
-        "provider_name": "macaron",
-        "api_key_env": "MACARON_API_KEY",
-        "base_url_env": "MACARON_BASE_URL",
-        "model_env": "MACARON_MODEL",
-        "model_class": "litellm_response",
-        "cost_tracking": "ignore_errors",
-        "step_limit": 250,
-        "cost_limit": 0.0,
-        "command_timeout_sec": 60,
-        "temperature": 0.0
+        "provider_name": "tinker",
+        "api_key_env": "TINKER_API_KEY",
+        "base_url_env": "TINKER_BASE_URL",
+        "model_env": "TINKER_MODEL",
+        "model_context_window": 262144,
+        "model_max_tokens": 32000,
+        "thinking": "off",
+        "tools": "read,write,edit,bash,grep,find,ls"
       },
       "env": {}
     }
@@ -92,9 +90,11 @@
       "registry_path": null,
       "overwrite": false,
       "download_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/.cache/harbor_tasks",
-      "task_names": null,
+      "task_names": [
+        "swe-bench/astropy__astropy-12907"
+      ],
       "exclude_task_names": null,
-      "n_tasks": 1
+      "n_tasks": null
     }
   ],
   "tasks": [],

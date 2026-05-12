@@ -123,6 +123,10 @@ def _trajectory_stats(path: Path) -> dict[str, Any]:
                 else ""
             )
             observation_text = str(observation_content or "")
+            is_error = bool(observation.get("is_error")) or (
+                "[error]" in observation_text
+                or "Validation failed for tool" in observation_text
+            )
             tool_calls.append(
                 {
                     "name": call.get("function_name") or "unknown",
@@ -130,7 +134,9 @@ def _trajectory_stats(path: Path) -> dict[str, Any]:
                     "argument_tokens": _token_count(argument_text),
                     "observation_chars": len(observation_text),
                     "observation_tokens": _token_count(observation_text),
-                    "is_error": bool(observation.get("is_error")),
+                    "is_error": is_error,
+                    "is_validation_error": "Validation failed for tool"
+                    in observation_text,
                 }
             )
     return {
@@ -167,6 +173,7 @@ def analyze(job_dir: Path) -> dict[str, Any]:
     tool_observation_chars: list[int] = []
     tool_observation_tokens: list[int] = []
     tool_error_count = 0
+    tool_validation_error_count = 0
     tool_name_counts = Counter()
     tool_name_argument_chars: dict[str, list[int]] = defaultdict(list)
     tool_name_argument_tokens: dict[str, list[int]] = defaultdict(list)
@@ -235,6 +242,8 @@ def analyze(job_dir: Path) -> dict[str, Any]:
             tool_name_observation_tokens[tool_name].append(obs_tokens)
             if tool_call.get("is_error"):
                 tool_error_count += 1
+            if tool_call.get("is_validation_error"):
+                tool_validation_error_count += 1
 
         agent_result = result.get("agent_result") or {}
         if agent_result.get("n_input_tokens") is not None:
@@ -315,6 +324,7 @@ def analyze(job_dir: Path) -> dict[str, Any]:
             "tool_calls_per_trial": summary(tool_calls_per_trial),
             "tool_calls_total": sum(tool_calls_per_trial),
             "tool_error_count": tool_error_count,
+            "tool_validation_error_count": tool_validation_error_count,
             "tool_name_counts": dict(tool_name_counts.most_common()),
             "tool_argument_chars": summary(tool_argument_chars),
             "tool_argument_tokens": summary(tool_argument_tokens),
@@ -384,6 +394,7 @@ def write_markdown(report: dict[str, Any], path: Path) -> None:
         f"- Tool observation chars min/max/mean/median: {stat_text(pi['tool_observation_chars'])}",
         f"- Tool observation tokens min/max/mean/median: {stat_text(pi['tool_observation_tokens'])}",
         f"- Tool error count: {pi['tool_error_count']}",
+        f"- Tool validation error count: {pi.get('tool_validation_error_count', 0)}",
         "",
         "### Tool Counts",
         "",
