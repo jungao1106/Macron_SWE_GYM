@@ -15,6 +15,9 @@ class ProviderSpec:
     litellm_custom_provider: str = "openai"
     mini_model_kwargs: dict[str, Any] = field(default_factory=dict)
     pi_openai_compat: dict[str, Any] = field(default_factory=dict)
+    pi_auth_header: bool = True
+    pi_model_reasoning: bool = False
+    default_api_key: str | None = None
 
     @property
     def model_name(self) -> str:
@@ -29,14 +32,19 @@ class ProviderSpec:
         return os.environ[self.base_url_env]
 
     def required_env(self) -> list[str]:
-        return [self.api_key_env, self.base_url_env, self.model_env]
+        required = [self.base_url_env, self.model_env]
+        if self.default_api_key is None:
+            required.insert(0, self.api_key_env)
+        return required
 
     def env_mapping(self) -> dict[str, str]:
-        return {
-            self.api_key_env: f"${{{self.api_key_env}}}",
+        mapping = {
             self.base_url_env: f"${{{self.base_url_env}}}",
             self.model_env: f"${{{self.model_env}}}",
         }
+        if self.default_api_key is None or os.environ.get(self.api_key_env):
+            mapping[self.api_key_env] = f"${{{self.api_key_env}}}"
+        return mapping
 
     def mini_kwargs(self, *, temperature: float, request_timeout_sec: float | None) -> dict[str, Any]:
         kwargs: dict[str, Any] = {
@@ -77,6 +85,9 @@ def resolve_provider(name: str) -> ProviderSpec:
     compat = _base_openai_compat()
     default_mini_model_class = "litellm"
     mini_model_kwargs: dict[str, Any] = {}
+    pi_auth_header = True
+    pi_model_reasoning = False
+    default_api_key: str | None = None
 
     if provider == "macaron":
         default_mini_model_class = "litellm_response"
@@ -84,7 +95,7 @@ def resolve_provider(name: str) -> ProviderSpec:
             "You are mini-SWE-agent. Use the bash tool to solve the user's "
             "software engineering task."
         )
-    elif provider == "novita":
+    elif provider in {"novita", "tinker"}:
         default_mini_model_class = "litellm_textbased"
         compat.update(
             {
@@ -92,8 +103,16 @@ def resolve_provider(name: str) -> ProviderSpec:
                 "thinkingFormat": "zai",
             }
         )
-    elif provider == "tinker":
+    elif provider == "mindlab":
         default_mini_model_class = "litellm_textbased"
+        pi_auth_header = False
+        pi_model_reasoning = True
+        default_api_key = "mindlab-local-no-auth"
+        compat.update(
+            {
+                "thinkingFormat": "qwen-chat-template",
+            }
+        )
 
     return ProviderSpec(
         name=provider,
@@ -103,4 +122,7 @@ def resolve_provider(name: str) -> ProviderSpec:
         default_mini_model_class=default_mini_model_class,
         mini_model_kwargs=mini_model_kwargs,
         pi_openai_compat=compat,
+        pi_auth_header=pi_auth_header,
+        pi_model_reasoning=pi_model_reasoning,
+        default_api_key=default_api_key,
     )

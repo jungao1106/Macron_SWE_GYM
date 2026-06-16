@@ -1,6 +1,6 @@
 # Mini SWE-Agent GPT-5.5 Analysis
 
-- Job dir: `jobs/full_mini_macaron_gpt55_fixed_20260511_160556`
+- Job dir: `/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/jobs/full_mini_macaron_gpt55_fixed_20260511_160556`
 - Trials: 500
 - Verified trials: 497
 - Errors / unverified: 3 / 3
@@ -63,6 +63,24 @@
 - Mini messages mean/median/max: 42.62374245472837 / 40 / 126
 - Assistant responses mean/median/max: 20.281690140845072 / 19 / 62
 - Bash calls mean/median/max: 20.281690140845072 / 19 / 62
+
+## Tool Calls
+
+- Tool call rounds min/max/mean/median: 0 / 62 / 20.16 / 18.5
+- Tool calls total: 10080
+- Tool calls per trial min/max/mean/median: 0 / 62 / 20.16 / 18.5
+- Tool argument chars min/max/mean/median: 17 / 6729 / 340.7518849206349 / 129.0
+- Tool argument tokens min/max/mean/median: 9 / 1986 / 109.44107142857143 / 44.0
+- Tool observation chars min/max/mean/median: 0 / 0 / 0.0 / 0.0
+- Tool observation tokens min/max/mean/median: 0 / 0 / 0.0 / 0.0
+- Tool error count: 0
+- Tool validation error count: 0
+
+### Tool Counts
+
+| Tool | Count | Arg tokens min/max/mean/median | Observation tokens min/max/mean/median |
+| --- | ---: | ---: | ---: |
+| bash | 10080 | 9 / 1986 / 109.44107142857143 / 44.0 | 0 / 0 / 0.0 / 0.0 |
 
 ## Tokens
 

@@ -1,5 +1,5 @@
 {
-  "job_dir": "jobs/full_mini_macaron_gpt55_fixed_20260511_160556",
+  "job_dir": "/vePFS-Mindverse/user/intern/jungao/Marcronv1_SWE/jobs/full_mini_macaron_gpt55_fixed_20260511_160556",
   "job_result": {
     "id": "d1495f61-d9af-4580-8d32-ff3a66bdb71b",
     "started_at": "2026-05-12T02:44:12.027706",
@@ -687,6 +687,103 @@
       "median": 19,
       "min": 7,
       "max": 62
+    },
+    "tool_call_rounds": {
+      "count": 500,
+      "mean": 20.16,
+      "median": 18.5,
+      "min": 0,
+      "max": 62
+    },
+    "tool_calls": {
+      "count": 500,
+      "mean": 20.16,
+      "median": 18.5,
+      "min": 0,
+      "max": 62
+    }
+  },
+  "tool_calls": {
+    "tool_call_rounds": {
+      "count": 500,
+      "mean": 20.16,
+      "median": 18.5,
+      "min": 0,
+      "max": 62
+    },
+    "tool_calls_per_trial": {
+      "count": 500,
+      "mean": 20.16,
+      "median": 18.5,
+      "min": 0,
+      "max": 62
+    },
+    "tool_calls_total": 10080,
+    "tool_error_count": 0,
+    "tool_validation_error_count": 0,
+    "tool_name_counts": {
+      "bash": 10080
+    },
+    "tool_argument_chars": {
+      "count": 10080,
+      "mean": 340.7518849206349,
+      "median": 129.0,
+      "min": 17,
+      "max": 6729
+    },
+    "tool_argument_tokens": {
+      "count": 10080,
+      "mean": 109.44107142857143,
+      "median": 44.0,
+      "min": 9,
+      "max": 1986
+    },
+    "tool_observation_chars": {
+      "count": 10080,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0,
+      "max": 0
+    },
+    "tool_observation_tokens": {
+      "count": 10080,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0,
+      "max": 0
+    },
+    "tool_name_stats": {
+      "bash": {
+        "count": 10080,
+        "argument_chars": {
+          "count": 10080,
+          "mean": 340.7518849206349,
+          "median": 129.0,
+          "min": 17,
+          "max": 6729
+        },
+        "argument_tokens": {
+          "count": 10080,
+          "mean": 109.44107142857143,
+          "median": 44.0,
+          "min": 9,
+          "max": 1986
+        },
+        "observation_chars": {
+          "count": 10080,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        },
+        "observation_tokens": {
+          "count": 10080,
+          "mean": 0.0,
+          "median": 0.0,
+          "min": 0,
+          "max": 0
+        }
+      }
     }
   },
   "tokens": {
@@ -727,7 +824,7 @@
       "min": 0.07457,
       "max": 8.124827000000002
     },
-    "agent_result_cost_usd_total": 376.29598400000003,
+    "agent_result_cost_usd_total": 376.2959840000003,
     "mini_trajectory_cost_usd": {
       "count": 497,
       "mean": 0.7571347766599599,
@@ -735,7 +832,7 @@
       "min": 0.07457,
       "max": 8.124827000000002
     },
-    "mini_trajectory_cost_usd_total": 376.29598400000003
+    "mini_trajectory_cost_usd_total": 376.2959840000003
   },
   "timing": {
     "trial_duration_sec": {
@@ -761,6 +858,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 19,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 39180
     },
     {
@@ -777,6 +876,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 67761
     },
     {
@@ -793,6 +894,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 85961
     },
     {
@@ -809,6 +912,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 74,
       "mini_bash_calls": 36,
+      "mini_tool_call_rounds": 36,
+      "mini_tool_calls": 36,
       "mini_total_tokens": 670066
     },
     {
@@ -825,6 +930,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 266552
     },
     {
@@ -841,6 +948,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 73080
     },
     {
@@ -857,6 +966,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 216935
     },
     {
@@ -873,6 +984,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 95321
     },
     {
@@ -889,6 +1002,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 157900
     },
     {
@@ -905,6 +1020,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 86801
     },
     {
@@ -921,6 +1038,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 46949
     },
     {
@@ -937,6 +1056,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 203607
     },
     {
@@ -953,6 +1074,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 156402
     },
     {
@@ -969,6 +1092,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 293332
     },
     {
@@ -985,6 +1110,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 58,
       "mini_bash_calls": 28,
+      "mini_tool_call_rounds": 28,
+      "mini_tool_calls": 28,
       "mini_total_tokens": 380715
     },
     {
@@ -1001,6 +1128,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 155169
     },
     {
@@ -1017,6 +1146,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 18,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 27212
     },
     {
@@ -1033,6 +1164,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 18,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 45815
     },
     {
@@ -1049,6 +1182,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 37123
     },
     {
@@ -1065,6 +1200,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 76415
     },
     {
@@ -1081,6 +1218,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 163665
     },
     {
@@ -1097,6 +1236,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 62156
     },
     {
@@ -1113,6 +1254,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 181647
     },
     {
@@ -1129,6 +1272,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 78,
       "mini_bash_calls": 38,
+      "mini_tool_call_rounds": 38,
+      "mini_tool_calls": 38,
       "mini_total_tokens": 772257
     },
     {
@@ -1145,6 +1290,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 154048
     },
     {
@@ -1161,6 +1308,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 68,
       "mini_bash_calls": 33,
+      "mini_tool_call_rounds": 33,
+      "mini_tool_calls": 33,
       "mini_total_tokens": 375848
     },
     {
@@ -1177,6 +1326,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 38968
     },
     {
@@ -1193,6 +1344,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 27566
     },
     {
@@ -1209,6 +1362,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 259198
     },
     {
@@ -1225,6 +1380,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 86,
       "mini_bash_calls": 42,
+      "mini_tool_call_rounds": 42,
+      "mini_tool_calls": 42,
       "mini_total_tokens": 1265286
     },
     {
@@ -1241,6 +1398,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 198692
     },
     {
@@ -1257,6 +1416,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 21,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 26053
     },
     {
@@ -1273,6 +1434,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 92359
     },
     {
@@ -1289,6 +1452,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 50805
     },
     {
@@ -1305,6 +1470,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 68,
       "mini_bash_calls": 33,
+      "mini_tool_call_rounds": 33,
+      "mini_tool_calls": 33,
       "mini_total_tokens": 527207
     },
     {
@@ -1321,6 +1488,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 243006
     },
     {
@@ -1337,6 +1506,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 68,
       "mini_bash_calls": 33,
+      "mini_tool_call_rounds": 33,
+      "mini_tool_calls": 33,
       "mini_total_tokens": 557151
     },
     {
@@ -1353,6 +1524,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 35049
     },
     {
@@ -1369,6 +1542,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 136192
     },
     {
@@ -1385,6 +1560,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 194679
     },
     {
@@ -1401,6 +1578,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 96,
       "mini_bash_calls": 47,
+      "mini_tool_call_rounds": 47,
+      "mini_tool_calls": 47,
       "mini_total_tokens": 719988
     },
     {
@@ -1417,6 +1596,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 42630
     },
     {
@@ -1433,6 +1614,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 62,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 605919
     },
     {
@@ -1449,6 +1632,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 144571
     },
     {
@@ -1465,6 +1650,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 262950
     },
     {
@@ -1481,6 +1668,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 114055
     },
     {
@@ -1497,6 +1686,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 170660
     },
     {
@@ -1513,6 +1704,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 62,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 420708
     },
     {
@@ -1529,6 +1722,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 191268
     },
     {
@@ -1545,6 +1740,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 53420
     },
     {
@@ -1561,6 +1758,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 122366
     },
     {
@@ -1577,6 +1776,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 80241
     },
     {
@@ -1593,6 +1794,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 131014
     },
     {
@@ -1609,6 +1812,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 116909
     },
     {
@@ -1625,6 +1830,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 304541
     },
     {
@@ -1641,6 +1848,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 211818
     },
     {
@@ -1657,6 +1866,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 122509
     },
     {
@@ -1673,6 +1884,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 397741
     },
     {
@@ -1689,6 +1902,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 173324
     },
     {
@@ -1705,6 +1920,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 228102
     },
     {
@@ -1721,6 +1938,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 138857
     },
     {
@@ -1737,6 +1956,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 191812
     },
     {
@@ -1753,6 +1974,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 35780
     },
     {
@@ -1769,6 +1992,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 42310
     },
     {
@@ -1785,6 +2010,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 93473
     },
     {
@@ -1801,6 +2028,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 196334
     },
     {
@@ -1817,6 +2046,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 75901
     },
     {
@@ -1833,6 +2064,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 242046
     },
     {
@@ -1849,6 +2082,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 232049
     },
     {
@@ -1865,6 +2100,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 163894
     },
     {
@@ -1881,6 +2118,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 234005
     },
     {
@@ -1897,6 +2136,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 401734
     },
     {
@@ -1913,6 +2154,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 50642
     },
     {
@@ -1929,6 +2172,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 23814
     },
     {
@@ -1945,6 +2190,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 152926
     },
     {
@@ -1961,6 +2208,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 271898
     },
     {
@@ -1977,6 +2226,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 92648
     },
     {
@@ -1993,6 +2244,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 279825
     },
     {
@@ -2009,6 +2262,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 56522
     },
     {
@@ -2025,6 +2280,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 77699
     },
     {
@@ -2041,6 +2298,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 102411
     },
     {
@@ -2057,6 +2316,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 37,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 101431
     },
     {
@@ -2073,6 +2334,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 51,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 325101
     },
     {
@@ -2089,6 +2352,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 192265
     },
     {
@@ -2105,6 +2370,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 126,
       "mini_bash_calls": 62,
+      "mini_tool_call_rounds": 62,
+      "mini_tool_calls": 62,
       "mini_total_tokens": 1478954
     },
     {
@@ -2121,6 +2388,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 66,
       "mini_bash_calls": 32,
+      "mini_tool_call_rounds": 32,
+      "mini_tool_calls": 32,
       "mini_total_tokens": 431415
     },
     {
@@ -2137,6 +2406,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 79532
     },
     {
@@ -2153,6 +2424,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 28245
     },
     {
@@ -2169,6 +2442,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 513171
     },
     {
@@ -2185,6 +2460,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 166200
     },
     {
@@ -2201,6 +2478,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 314153
     },
     {
@@ -2217,6 +2496,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 55,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 294727
     },
     {
@@ -2233,6 +2514,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 65,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 370721
     },
     {
@@ -2249,6 +2532,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 59054
     },
     {
@@ -2265,6 +2550,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 92,
       "mini_bash_calls": 45,
+      "mini_tool_call_rounds": 45,
+      "mini_tool_calls": 45,
       "mini_total_tokens": 663961
     },
     {
@@ -2281,6 +2568,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 201906
     },
     {
@@ -2297,6 +2586,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 111267
     },
     {
@@ -2313,6 +2604,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 55491
     },
     {
@@ -2329,6 +2622,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 78,
       "mini_bash_calls": 38,
+      "mini_tool_call_rounds": 38,
+      "mini_tool_calls": 38,
       "mini_total_tokens": 652961
     },
     {
@@ -2345,6 +2640,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 68,
       "mini_bash_calls": 33,
+      "mini_tool_call_rounds": 33,
+      "mini_tool_calls": 33,
       "mini_total_tokens": 383798
     },
     {
@@ -2361,6 +2658,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 125616
     },
     {
@@ -2377,6 +2676,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 145594
     },
     {
@@ -2393,6 +2694,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 225447
     },
     {
@@ -2409,6 +2712,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 206621
     },
     {
@@ -2425,6 +2730,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 241735
     },
     {
@@ -2441,6 +2748,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 99728
     },
     {
@@ -2457,6 +2766,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 226889
     },
     {
@@ -2473,6 +2784,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 56295
     },
     {
@@ -2489,6 +2802,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 307394
     },
     {
@@ -2505,6 +2820,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 581310
     },
     {
@@ -2521,6 +2838,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 128307
     },
     {
@@ -2537,6 +2856,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 138285
     },
     {
@@ -2553,6 +2874,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 178389
     },
     {
@@ -2569,6 +2892,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 19,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 37360
     },
     {
@@ -2585,6 +2910,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 68552
     },
     {
@@ -2601,6 +2928,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 321555
     },
     {
@@ -2617,6 +2946,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 138515
     },
     {
@@ -2633,6 +2964,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 23,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 36859
     },
     {
@@ -2649,6 +2982,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 135136
     },
     {
@@ -2665,6 +3000,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 50334
     },
     {
@@ -2681,6 +3018,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 79700
     },
     {
@@ -2697,6 +3036,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 107344
     },
     {
@@ -2713,6 +3054,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 68974
     },
     {
@@ -2729,6 +3072,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 79572
     },
     {
@@ -2745,6 +3090,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 30989
     },
     {
@@ -2761,6 +3108,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 58,
       "mini_bash_calls": 28,
+      "mini_tool_call_rounds": 28,
+      "mini_tool_calls": 28,
       "mini_total_tokens": 320030
     },
     {
@@ -2777,6 +3126,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 54359
     },
     {
@@ -2793,6 +3144,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 106640
     },
     {
@@ -2809,6 +3162,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 167733
     },
     {
@@ -2825,6 +3180,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 225912
     },
     {
@@ -2841,6 +3198,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 18,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 39113
     },
     {
@@ -2857,6 +3216,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 87424
     },
     {
@@ -2873,6 +3234,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 3593706
     },
     {
@@ -2889,6 +3252,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 106626
     },
     {
@@ -2905,6 +3270,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 67765
     },
     {
@@ -2921,6 +3288,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 47484
     },
     {
@@ -2937,6 +3306,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 200516
     },
     {
@@ -2953,6 +3324,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 216951
     },
     {
@@ -2969,6 +3342,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 66,
       "mini_bash_calls": 32,
+      "mini_tool_call_rounds": 32,
+      "mini_tool_calls": 32,
       "mini_total_tokens": 394345
     },
     {
@@ -2985,6 +3360,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 74,
       "mini_bash_calls": 36,
+      "mini_tool_call_rounds": 36,
+      "mini_tool_calls": 36,
       "mini_total_tokens": 420146
     },
     {
@@ -3001,6 +3378,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 164862
     },
     {
@@ -3017,6 +3396,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 233366
     },
     {
@@ -3033,6 +3414,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 17817
     },
     {
@@ -3049,6 +3432,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 70,
       "mini_bash_calls": 34,
+      "mini_tool_call_rounds": 34,
+      "mini_tool_calls": 34,
       "mini_total_tokens": 454771
     },
     {
@@ -3065,6 +3450,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 40766
     },
     {
@@ -3081,6 +3468,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 324134
     },
     {
@@ -3097,6 +3486,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 192363
     },
     {
@@ -3113,6 +3504,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 56533
     },
     {
@@ -3129,6 +3522,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 150742
     },
     {
@@ -3145,6 +3540,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 114822
     },
     {
@@ -3161,6 +3558,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 58476
     },
     {
@@ -3177,6 +3576,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 74,
       "mini_bash_calls": 36,
+      "mini_tool_call_rounds": 36,
+      "mini_tool_calls": 36,
       "mini_total_tokens": 687236
     },
     {
@@ -3193,6 +3594,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 70688
     },
     {
@@ -3209,6 +3612,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 78794
     },
     {
@@ -3225,6 +3630,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 158738
     },
     {
@@ -3241,6 +3648,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 107958
     },
     {
@@ -3257,6 +3666,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 67116
     },
     {
@@ -3273,6 +3684,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 121883
     },
     {
@@ -3289,6 +3702,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 147239
     },
     {
@@ -3305,6 +3720,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 150997
     },
     {
@@ -3321,6 +3738,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 144393
     },
     {
@@ -3337,6 +3756,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 132386
     },
     {
@@ -3353,6 +3774,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 146238
     },
     {
@@ -3369,6 +3792,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 154456
     },
     {
@@ -3385,6 +3810,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 60930
     },
     {
@@ -3401,6 +3828,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 57,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 419283
     },
     {
@@ -3417,6 +3846,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 39,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 160856
     },
     {
@@ -3433,6 +3864,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 31,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 58437
     },
     {
@@ -3449,6 +3882,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 61022
     },
     {
@@ -3465,6 +3900,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 61903
     },
     {
@@ -3481,6 +3918,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 296041
     },
     {
@@ -3497,6 +3936,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 191110
     },
     {
@@ -3513,6 +3954,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 34707
     },
     {
@@ -3529,6 +3972,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 202430
     },
     {
@@ -3545,6 +3990,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 98,
       "mini_bash_calls": 48,
+      "mini_tool_call_rounds": 48,
+      "mini_tool_calls": 48,
       "mini_total_tokens": 799334
     },
     {
@@ -3561,6 +4008,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 341194
     },
     {
@@ -3577,6 +4026,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 58,
       "mini_bash_calls": 28,
+      "mini_tool_call_rounds": 28,
+      "mini_tool_calls": 28,
       "mini_total_tokens": 334371
     },
     {
@@ -3593,6 +4044,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 74232
     },
     {
@@ -3609,6 +4062,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 162566
     },
     {
@@ -3625,6 +4080,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 155966
     },
     {
@@ -3641,6 +4098,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 74,
       "mini_bash_calls": 36,
+      "mini_tool_call_rounds": 36,
+      "mini_tool_calls": 36,
       "mini_total_tokens": 514354
     },
     {
@@ -3657,6 +4116,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 72,
       "mini_bash_calls": 34,
+      "mini_tool_call_rounds": 34,
+      "mini_tool_calls": 34,
       "mini_total_tokens": 712718
     },
     {
@@ -3673,6 +4134,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 84,
       "mini_bash_calls": 41,
+      "mini_tool_call_rounds": 41,
+      "mini_tool_calls": 41,
       "mini_total_tokens": 874386
     },
     {
@@ -3689,6 +4152,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 205305
     },
     {
@@ -3705,6 +4170,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 18,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 23321
     },
     {
@@ -3721,6 +4188,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 257589
     },
     {
@@ -3737,6 +4206,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 422860
     },
     {
@@ -3753,6 +4224,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 137235
     },
     {
@@ -3769,6 +4242,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 102176
     },
     {
@@ -3785,6 +4260,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 227240
     },
     {
@@ -3801,6 +4278,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 190155
     },
     {
@@ -3817,6 +4296,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 62,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 382273
     },
     {
@@ -3833,6 +4314,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 43,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 137956
     },
     {
@@ -3849,6 +4332,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 65891
     },
     {
@@ -3865,6 +4350,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 520104
     },
     {
@@ -3881,6 +4368,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 138602
     },
     {
@@ -3897,6 +4386,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 72,
       "mini_bash_calls": 34,
+      "mini_tool_call_rounds": 34,
+      "mini_tool_calls": 34,
       "mini_total_tokens": 553780
     },
     {
@@ -3913,6 +4404,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 67872
     },
     {
@@ -3929,6 +4422,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 58,
       "mini_bash_calls": 28,
+      "mini_tool_call_rounds": 28,
+      "mini_tool_calls": 28,
       "mini_total_tokens": 337794
     },
     {
@@ -3945,6 +4440,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 32906
     },
     {
@@ -3961,6 +4458,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 124474
     },
     {
@@ -3977,6 +4476,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 120,
       "mini_bash_calls": 59,
+      "mini_tool_call_rounds": 59,
+      "mini_tool_calls": 59,
       "mini_total_tokens": 1562427
     },
     {
@@ -3993,6 +4494,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 238363
     },
     {
@@ -4009,6 +4512,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 204802
     },
     {
@@ -4025,6 +4530,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 94,
       "mini_bash_calls": 46,
+      "mini_tool_call_rounds": 46,
+      "mini_tool_calls": 46,
       "mini_total_tokens": 657673
     },
     {
@@ -4041,6 +4548,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 148519
     },
     {
@@ -4057,6 +4566,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 150044
     },
     {
@@ -4073,6 +4584,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 27554
     },
     {
@@ -4089,6 +4602,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 55080
     },
     {
@@ -4105,6 +4620,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 337903
     },
     {
@@ -4121,6 +4638,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 110423
     },
     {
@@ -4137,6 +4656,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 84,
       "mini_bash_calls": 41,
+      "mini_tool_call_rounds": 41,
+      "mini_tool_calls": 41,
       "mini_total_tokens": 861745
     },
     {
@@ -4153,6 +4674,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 418985
     },
     {
@@ -4169,6 +4692,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 18,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 24072
     },
     {
@@ -4185,6 +4710,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 94,
       "mini_bash_calls": 46,
+      "mini_tool_call_rounds": 46,
+      "mini_tool_calls": 46,
       "mini_total_tokens": 539829
     },
     {
@@ -4201,6 +4728,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 49941
     },
     {
@@ -4217,6 +4746,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 150265
     },
     {
@@ -4233,6 +4764,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 286942
     },
     {
@@ -4249,6 +4782,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 18,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 28234
     },
     {
@@ -4265,6 +4800,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 80,
       "mini_bash_calls": 39,
+      "mini_tool_call_rounds": 39,
+      "mini_tool_calls": 39,
       "mini_total_tokens": 572130
     },
     {
@@ -4281,6 +4818,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 659319
     },
     {
@@ -4297,6 +4836,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 171195
     },
     {
@@ -4313,6 +4854,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 201504
     },
     {
@@ -4329,6 +4872,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 110,
       "mini_bash_calls": 54,
+      "mini_tool_call_rounds": 54,
+      "mini_tool_calls": 54,
       "mini_total_tokens": 950784
     },
     {
@@ -4345,6 +4890,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 73,
       "mini_bash_calls": 35,
+      "mini_tool_call_rounds": 35,
+      "mini_tool_calls": 35,
       "mini_total_tokens": 535620
     },
     {
@@ -4361,6 +4908,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 138034
     },
     {
@@ -4377,6 +4926,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 50874
     },
     {
@@ -4393,6 +4944,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 171231
     },
     {
@@ -4409,6 +4962,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 52320
     },
     {
@@ -4425,6 +4980,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 34622
     },
     {
@@ -4441,6 +4998,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 351562
     },
     {
@@ -4457,6 +5016,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 193219
     },
     {
@@ -4473,6 +5034,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 705584
     },
     {
@@ -4489,6 +5052,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 29251
     },
     {
@@ -4505,6 +5070,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 111221
     },
     {
@@ -4521,6 +5088,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 87212
     },
     {
@@ -4537,6 +5106,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 66,
       "mini_bash_calls": 32,
+      "mini_tool_call_rounds": 32,
+      "mini_tool_calls": 32,
       "mini_total_tokens": 429071
     },
     {
@@ -4553,6 +5124,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 18,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 27081
     },
     {
@@ -4569,6 +5142,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 58,
       "mini_bash_calls": 28,
+      "mini_tool_call_rounds": 28,
+      "mini_tool_calls": 28,
       "mini_total_tokens": 194039
     },
     {
@@ -4585,6 +5160,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 41,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 154361
     },
     {
@@ -4601,6 +5178,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 30811
     },
     {
@@ -4617,6 +5196,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 54913
     },
     {
@@ -4633,6 +5214,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 66,
       "mini_bash_calls": 32,
+      "mini_tool_call_rounds": 32,
+      "mini_tool_calls": 32,
       "mini_total_tokens": 559430
     },
     {
@@ -4649,6 +5232,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 114537
     },
     {
@@ -4665,6 +5250,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 39352
     },
     {
@@ -4681,6 +5268,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 205938
     },
     {
@@ -4697,6 +5286,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 201822
     },
     {
@@ -4713,6 +5304,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 79671
     },
     {
@@ -4729,6 +5322,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 176177
     },
     {
@@ -4745,6 +5340,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 278246
     },
     {
@@ -4761,6 +5358,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 82251
     },
     {
@@ -4777,6 +5376,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 264273
     },
     {
@@ -4793,6 +5394,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 60512
     },
     {
@@ -4809,6 +5412,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 90513
     },
     {
@@ -4825,6 +5430,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 99007
     },
     {
@@ -4841,6 +5448,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 44901
     },
     {
@@ -4857,6 +5466,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 196876
     },
     {
@@ -4873,6 +5484,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 370695
     },
     {
@@ -4889,6 +5502,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 220622
     },
     {
@@ -4905,6 +5520,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 130685
     },
     {
@@ -4921,6 +5538,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 29,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 99572
     },
     {
@@ -4937,6 +5556,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 179363
     },
     {
@@ -4953,6 +5574,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 126318
     },
     {
@@ -4969,6 +5592,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 384784
     },
     {
@@ -4985,6 +5610,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 129103
     },
     {
@@ -5001,6 +5628,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 193055
     },
     {
@@ -5017,6 +5646,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 233237
     },
     {
@@ -5033,6 +5664,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 574698
     },
     {
@@ -5049,6 +5682,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 98076
     },
     {
@@ -5065,6 +5700,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 271519
     },
     {
@@ -5081,6 +5718,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 104278
     },
     {
@@ -5097,6 +5736,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 114,
       "mini_bash_calls": 56,
+      "mini_tool_call_rounds": 56,
+      "mini_tool_calls": 56,
       "mini_total_tokens": 883096
     },
     {
@@ -5113,6 +5754,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 386931
     },
     {
@@ -5129,6 +5772,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 68419
     },
     {
@@ -5145,6 +5790,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 183684
     },
     {
@@ -5161,6 +5808,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 91597
     },
     {
@@ -5177,6 +5826,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 126810
     },
     {
@@ -5193,6 +5844,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 116691
     },
     {
@@ -5209,6 +5862,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 197540
     },
     {
@@ -5225,6 +5880,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 224505
     },
     {
@@ -5241,6 +5898,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 96,
       "mini_bash_calls": 47,
+      "mini_tool_call_rounds": 47,
+      "mini_tool_calls": 47,
       "mini_total_tokens": 1005031
     },
     {
@@ -5257,6 +5916,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 273730
     },
     {
@@ -5273,6 +5934,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 175571
     },
     {
@@ -5289,6 +5952,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 62,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 507024
     },
     {
@@ -5305,6 +5970,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 127940
     },
     {
@@ -5321,6 +5988,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 172142
     },
     {
@@ -5337,6 +6006,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 193360
     },
     {
@@ -5353,6 +6024,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 577614
     },
     {
@@ -5369,6 +6042,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 448954
     },
     {
@@ -5385,6 +6060,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 27890
     },
     {
@@ -5401,6 +6078,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 79456
     },
     {
@@ -5417,6 +6096,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 73582
     },
     {
@@ -5433,6 +6114,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 29521
     },
     {
@@ -5449,6 +6132,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 146104
     },
     {
@@ -5465,6 +6150,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 87007
     },
     {
@@ -5481,6 +6168,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 97354
     },
     {
@@ -5497,6 +6186,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 66562
     },
     {
@@ -5513,6 +6204,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 392830
     },
     {
@@ -5529,6 +6222,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 211618
     },
     {
@@ -5545,6 +6240,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 180619
     },
     {
@@ -5561,6 +6258,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 96245
     },
     {
@@ -5577,6 +6276,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 147337
     },
     {
@@ -5593,6 +6294,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 185236
     },
     {
@@ -5609,6 +6312,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 80916
     },
     {
@@ -5625,6 +6330,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 69660
     },
     {
@@ -5641,6 +6348,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 33,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 99015
     },
     {
@@ -5657,6 +6366,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 126697
     },
     {
@@ -5673,6 +6384,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 22670
     },
     {
@@ -5689,6 +6402,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 80,
       "mini_bash_calls": 39,
+      "mini_tool_call_rounds": 39,
+      "mini_tool_calls": 39,
       "mini_total_tokens": 614112
     },
     {
@@ -5705,6 +6420,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 67634
     },
     {
@@ -5721,6 +6438,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 224995
     },
     {
@@ -5737,6 +6456,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 230867
     },
     {
@@ -5753,6 +6474,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 80,
       "mini_bash_calls": 39,
+      "mini_tool_call_rounds": 39,
+      "mini_tool_calls": 39,
       "mini_total_tokens": 560379
     },
     {
@@ -5769,6 +6492,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 96,
       "mini_bash_calls": 47,
+      "mini_tool_call_rounds": 47,
+      "mini_tool_calls": 47,
       "mini_total_tokens": 848659
     },
     {
@@ -5785,6 +6510,8 @@
       "mini_trajectory_exists": false,
       "mini_messages": 0,
       "mini_bash_calls": 0,
+      "mini_tool_call_rounds": 0,
+      "mini_tool_calls": 0,
       "mini_total_tokens": 0
     },
     {
@@ -5801,6 +6528,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 62,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 228728
     },
     {
@@ -5817,6 +6546,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 68,
       "mini_bash_calls": 33,
+      "mini_tool_call_rounds": 33,
+      "mini_tool_calls": 33,
       "mini_total_tokens": 353376
     },
     {
@@ -5833,6 +6564,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 457182
     },
     {
@@ -5849,6 +6582,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 98264
     },
     {
@@ -5865,6 +6600,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 205014
     },
     {
@@ -5881,6 +6618,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 360014
     },
     {
@@ -5897,6 +6636,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 198652
     },
     {
@@ -5913,6 +6654,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 121810
     },
     {
@@ -5929,6 +6672,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 129271
     },
     {
@@ -5945,6 +6690,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 336652
     },
     {
@@ -5961,6 +6708,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 74,
       "mini_bash_calls": 36,
+      "mini_tool_call_rounds": 36,
+      "mini_tool_calls": 36,
       "mini_total_tokens": 524493
     },
     {
@@ -5977,6 +6726,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 33,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 104458
     },
     {
@@ -5993,6 +6744,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 70,
       "mini_bash_calls": 34,
+      "mini_tool_call_rounds": 34,
+      "mini_tool_calls": 34,
       "mini_total_tokens": 688444
     },
     {
@@ -6009,6 +6762,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 19,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 43896
     },
     {
@@ -6025,6 +6780,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 243959
     },
     {
@@ -6041,6 +6798,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 35615
     },
     {
@@ -6057,6 +6816,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 154704
     },
     {
@@ -6073,6 +6834,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 60,
       "mini_bash_calls": 29,
+      "mini_tool_call_rounds": 29,
+      "mini_tool_calls": 29,
       "mini_total_tokens": 248633
     },
     {
@@ -6089,6 +6852,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 31294
     },
     {
@@ -6105,6 +6870,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 33614
     },
     {
@@ -6121,6 +6888,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 268258
     },
     {
@@ -6137,6 +6906,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 20632
     },
     {
@@ -6153,6 +6924,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 137552
     },
     {
@@ -6169,6 +6942,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 311833
     },
     {
@@ -6185,6 +6960,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 199753
     },
     {
@@ -6201,6 +6978,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 58,
       "mini_bash_calls": 28,
+      "mini_tool_call_rounds": 28,
+      "mini_tool_calls": 28,
       "mini_total_tokens": 278638
     },
     {
@@ -6217,6 +6996,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 102129
     },
     {
@@ -6233,6 +7014,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 59710
     },
     {
@@ -6249,6 +7032,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 67021
     },
     {
@@ -6265,6 +7050,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 193106
     },
     {
@@ -6281,6 +7068,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 106643
     },
     {
@@ -6297,6 +7086,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 73967
     },
     {
@@ -6313,6 +7104,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 37851
     },
     {
@@ -6329,6 +7122,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 159563
     },
     {
@@ -6345,6 +7140,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 131463
     },
     {
@@ -6361,6 +7158,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 57222
     },
     {
@@ -6377,6 +7176,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 84194
     },
     {
@@ -6393,6 +7194,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 378185
     },
     {
@@ -6409,6 +7212,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 160124
     },
     {
@@ -6425,6 +7230,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 44198
     },
     {
@@ -6441,6 +7248,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 343516
     },
     {
@@ -6457,6 +7266,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 86977
     },
     {
@@ -6473,6 +7284,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 147268
     },
     {
@@ -6489,6 +7302,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 63861
     },
     {
@@ -6505,6 +7320,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 96409
     },
     {
@@ -6521,6 +7338,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 153797
     },
     {
@@ -6537,6 +7356,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 38459
     },
     {
@@ -6553,6 +7374,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 326634
     },
     {
@@ -6569,6 +7392,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 125898
     },
     {
@@ -6585,6 +7410,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 44536
     },
     {
@@ -6601,6 +7428,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 71866
     },
     {
@@ -6617,6 +7446,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 18718
     },
     {
@@ -6633,6 +7464,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 89297
     },
     {
@@ -6649,6 +7482,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 110147
     },
     {
@@ -6665,6 +7500,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 115888
     },
     {
@@ -6681,6 +7518,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 53868
     },
     {
@@ -6697,6 +7536,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 272392
     },
     {
@@ -6713,6 +7554,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 16981
     },
     {
@@ -6729,6 +7572,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 78,
       "mini_bash_calls": 38,
+      "mini_tool_call_rounds": 38,
+      "mini_tool_calls": 38,
       "mini_total_tokens": 799829
     },
     {
@@ -6745,6 +7590,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 284328
     },
     {
@@ -6761,6 +7608,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 62,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 482943
     },
     {
@@ -6777,6 +7626,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 154178
     },
     {
@@ -6793,6 +7644,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 268021
     },
     {
@@ -6809,6 +7662,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 172167
     },
     {
@@ -6825,6 +7680,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 137177
     },
     {
@@ -6841,6 +7698,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 131571
     },
     {
@@ -6857,6 +7716,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 63,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 1255373
     },
     {
@@ -6873,6 +7734,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 115623
     },
     {
@@ -6889,6 +7752,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 68,
       "mini_bash_calls": 33,
+      "mini_tool_call_rounds": 33,
+      "mini_tool_calls": 33,
       "mini_total_tokens": 558443
     },
     {
@@ -6905,6 +7770,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 153029
     },
     {
@@ -6921,6 +7788,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 124,
       "mini_bash_calls": 61,
+      "mini_tool_call_rounds": 61,
+      "mini_tool_calls": 61,
       "mini_total_tokens": 1605412
     },
     {
@@ -6937,6 +7806,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 86,
       "mini_bash_calls": 42,
+      "mini_tool_call_rounds": 42,
+      "mini_tool_calls": 42,
       "mini_total_tokens": 885413
     },
     {
@@ -6953,6 +7824,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 256752
     },
     {
@@ -6969,6 +7842,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 62,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 437961
     },
     {
@@ -6985,6 +7860,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 68,
       "mini_bash_calls": 33,
+      "mini_tool_call_rounds": 33,
+      "mini_tool_calls": 33,
       "mini_total_tokens": 1049128
     },
     {
@@ -7001,6 +7878,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 300536
     },
     {
@@ -7017,6 +7896,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 72105
     },
     {
@@ -7033,6 +7914,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 96,
       "mini_bash_calls": 47,
+      "mini_tool_call_rounds": 47,
+      "mini_tool_calls": 47,
       "mini_total_tokens": 949907
     },
     {
@@ -7049,6 +7932,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 266853
     },
     {
@@ -7065,6 +7950,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 171463
     },
     {
@@ -7081,6 +7968,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 76748
     },
     {
@@ -7097,6 +7986,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 74770
     },
     {
@@ -7113,6 +8004,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 70,
       "mini_bash_calls": 34,
+      "mini_tool_call_rounds": 34,
+      "mini_tool_calls": 34,
       "mini_total_tokens": 617199
     },
     {
@@ -7129,6 +8022,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 68,
       "mini_bash_calls": 33,
+      "mini_tool_call_rounds": 33,
+      "mini_tool_calls": 33,
       "mini_total_tokens": 508545
     },
     {
@@ -7145,6 +8040,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 80,
       "mini_bash_calls": 39,
+      "mini_tool_call_rounds": 39,
+      "mini_tool_calls": 39,
       "mini_total_tokens": 653716
     },
     {
@@ -7161,6 +8058,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 723698
     },
     {
@@ -7177,6 +8076,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 332458
     },
     {
@@ -7193,6 +8094,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 236011
     },
     {
@@ -7209,6 +8112,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 88,
       "mini_bash_calls": 43,
+      "mini_tool_call_rounds": 43,
+      "mini_tool_calls": 43,
       "mini_total_tokens": 978981
     },
     {
@@ -7225,6 +8130,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 89546
     },
     {
@@ -7241,6 +8148,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 78,
       "mini_bash_calls": 38,
+      "mini_tool_call_rounds": 38,
+      "mini_tool_calls": 38,
       "mini_total_tokens": 832296
     },
     {
@@ -7257,6 +8166,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 441980
     },
     {
@@ -7273,6 +8184,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 232160
     },
     {
@@ -7289,6 +8202,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 91062
     },
     {
@@ -7305,6 +8220,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 33,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 145652
     },
     {
@@ -7321,6 +8238,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 415325
     },
     {
@@ -7337,6 +8256,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 353285
     },
     {
@@ -7353,6 +8274,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 96,
       "mini_bash_calls": 47,
+      "mini_tool_call_rounds": 47,
+      "mini_tool_calls": 47,
       "mini_total_tokens": 1001811
     },
     {
@@ -7369,6 +8292,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 266958
     },
     {
@@ -7385,6 +8310,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 166470
     },
     {
@@ -7401,6 +8328,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 164932
     },
     {
@@ -7417,6 +8346,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 174848
     },
     {
@@ -7433,6 +8364,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 33204
     },
     {
@@ -7449,6 +8382,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 70,
       "mini_bash_calls": 34,
+      "mini_tool_call_rounds": 34,
+      "mini_tool_calls": 34,
       "mini_total_tokens": 625599
     },
     {
@@ -7465,6 +8400,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 163243
     },
     {
@@ -7481,6 +8418,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 370857
     },
     {
@@ -7497,6 +8436,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 157475
     },
     {
@@ -7513,6 +8454,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 91762
     },
     {
@@ -7529,6 +8472,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 44776
     },
     {
@@ -7545,6 +8490,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 78,
       "mini_bash_calls": 38,
+      "mini_tool_call_rounds": 38,
+      "mini_tool_calls": 38,
       "mini_total_tokens": 1429388
     },
     {
@@ -7561,6 +8508,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 51697
     },
     {
@@ -7577,6 +8526,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 188737
     },
     {
@@ -7593,6 +8544,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 72,
       "mini_bash_calls": 35,
+      "mini_tool_call_rounds": 35,
+      "mini_tool_calls": 35,
       "mini_total_tokens": 634391
     },
     {
@@ -7609,6 +8562,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 146344
     },
     {
@@ -7625,6 +8580,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 58,
       "mini_bash_calls": 28,
+      "mini_tool_call_rounds": 28,
+      "mini_tool_calls": 28,
       "mini_total_tokens": 360905
     },
     {
@@ -7641,6 +8598,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 212703
     },
     {
@@ -7657,6 +8616,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 58,
       "mini_bash_calls": 28,
+      "mini_tool_call_rounds": 28,
+      "mini_tool_calls": 28,
       "mini_total_tokens": 414937
     },
     {
@@ -7673,6 +8634,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 70524
     },
     {
@@ -7689,6 +8652,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 53166
     },
     {
@@ -7705,6 +8670,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 57,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 391712
     },
     {
@@ -7721,6 +8688,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 146423
     },
     {
@@ -7737,6 +8706,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 28,
       "mini_bash_calls": 13,
+      "mini_tool_call_rounds": 13,
+      "mini_tool_calls": 13,
       "mini_total_tokens": 52857
     },
     {
@@ -7753,6 +8724,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 162201
     },
     {
@@ -7769,6 +8742,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 98417
     },
     {
@@ -7785,6 +8760,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 46,
       "mini_bash_calls": 22,
+      "mini_tool_call_rounds": 22,
+      "mini_tool_calls": 22,
       "mini_total_tokens": 207852
     },
     {
@@ -7801,6 +8778,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 230483
     },
     {
@@ -7817,6 +8796,8 @@
       "mini_trajectory_exists": false,
       "mini_messages": 0,
       "mini_bash_calls": 0,
+      "mini_tool_call_rounds": 0,
+      "mini_tool_calls": 0,
       "mini_total_tokens": 0
     },
     {
@@ -7833,6 +8814,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 52,
       "mini_bash_calls": 25,
+      "mini_tool_call_rounds": 25,
+      "mini_tool_calls": 25,
       "mini_total_tokens": 340503
     },
     {
@@ -7849,6 +8832,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 72,
       "mini_bash_calls": 35,
+      "mini_tool_call_rounds": 35,
+      "mini_tool_calls": 35,
       "mini_total_tokens": 483630
     },
     {
@@ -7865,6 +8850,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 442001
     },
     {
@@ -7881,6 +8868,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 59033
     },
     {
@@ -7897,6 +8886,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 192925
     },
     {
@@ -7913,6 +8904,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 211471
     },
     {
@@ -7929,6 +8922,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 30064
     },
     {
@@ -7945,6 +8940,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 51872
     },
     {
@@ -7961,6 +8958,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 74554
     },
     {
@@ -7977,6 +8976,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 106223
     },
     {
@@ -7993,6 +8994,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 70,
       "mini_bash_calls": 34,
+      "mini_tool_call_rounds": 34,
+      "mini_tool_calls": 34,
       "mini_total_tokens": 259851
     },
     {
@@ -8009,6 +9012,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 78,
       "mini_bash_calls": 38,
+      "mini_tool_call_rounds": 38,
+      "mini_tool_calls": 38,
       "mini_total_tokens": 475689
     },
     {
@@ -8025,6 +9030,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 104386
     },
     {
@@ -8041,6 +9048,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 394546
     },
     {
@@ -8057,6 +9066,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 135216
     },
     {
@@ -8073,6 +9084,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 316513
     },
     {
@@ -8089,6 +9102,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 16,
       "mini_bash_calls": 7,
+      "mini_tool_call_rounds": 7,
+      "mini_tool_calls": 7,
       "mini_total_tokens": 11974
     },
     {
@@ -8105,6 +9120,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 76693
     },
     {
@@ -8121,6 +9138,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 48,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 264459
     },
     {
@@ -8137,6 +9156,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 32,
       "mini_bash_calls": 15,
+      "mini_tool_call_rounds": 15,
+      "mini_tool_calls": 15,
       "mini_total_tokens": 147831
     },
     {
@@ -8153,6 +9174,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 56,
       "mini_bash_calls": 27,
+      "mini_tool_call_rounds": 27,
+      "mini_tool_calls": 27,
       "mini_total_tokens": 301762
     },
     {
@@ -8169,6 +9192,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 125208
     },
     {
@@ -8185,6 +9210,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 40,
       "mini_bash_calls": 19,
+      "mini_tool_call_rounds": 19,
+      "mini_tool_calls": 19,
       "mini_total_tokens": 105144
     },
     {
@@ -8201,6 +9228,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 62,
       "mini_bash_calls": 30,
+      "mini_tool_call_rounds": 30,
+      "mini_tool_calls": 30,
       "mini_total_tokens": 410761
     },
     {
@@ -8217,6 +9246,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 64,
       "mini_bash_calls": 31,
+      "mini_tool_call_rounds": 31,
+      "mini_tool_calls": 31,
       "mini_total_tokens": 343187
     },
     {
@@ -8233,6 +9264,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 90134
     },
     {
@@ -8249,6 +9282,8 @@
       "mini_trajectory_exists": false,
       "mini_messages": 0,
       "mini_bash_calls": 0,
+      "mini_tool_call_rounds": 0,
+      "mini_tool_calls": 0,
       "mini_total_tokens": 0
     },
     {
@@ -8265,6 +9300,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 311629
     },
     {
@@ -8281,6 +9318,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 167177
     },
     {
@@ -8297,6 +9336,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 18,
       "mini_bash_calls": 8,
+      "mini_tool_call_rounds": 8,
+      "mini_tool_calls": 8,
       "mini_total_tokens": 37322
     },
     {
@@ -8313,6 +9354,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 270874
     },
     {
@@ -8329,6 +9372,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 30,
       "mini_bash_calls": 14,
+      "mini_tool_call_rounds": 14,
+      "mini_tool_calls": 14,
       "mini_total_tokens": 85719
     },
     {
@@ -8345,6 +9390,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 102070
     },
     {
@@ -8361,6 +9408,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 72,
       "mini_bash_calls": 35,
+      "mini_tool_call_rounds": 35,
+      "mini_tool_calls": 35,
       "mini_total_tokens": 421688
     },
     {
@@ -8377,6 +9426,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 49,
       "mini_bash_calls": 23,
+      "mini_tool_call_rounds": 23,
+      "mini_tool_calls": 23,
       "mini_total_tokens": 382887
     },
     {
@@ -8393,6 +9444,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 110594
     },
     {
@@ -8409,6 +9462,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 191961
     },
     {
@@ -8425,6 +9480,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 68404
     },
     {
@@ -8441,6 +9498,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 141936
     },
     {
@@ -8457,6 +9516,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 330755
     },
     {
@@ -8473,6 +9534,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 204714
     },
     {
@@ -8489,6 +9552,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 24,
       "mini_bash_calls": 11,
+      "mini_tool_call_rounds": 11,
+      "mini_tool_calls": 11,
       "mini_total_tokens": 64115
     },
     {
@@ -8505,6 +9570,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 162834
     },
     {
@@ -8521,6 +9588,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 70,
       "mini_bash_calls": 34,
+      "mini_tool_call_rounds": 34,
+      "mini_tool_calls": 34,
       "mini_total_tokens": 645970
     },
     {
@@ -8537,6 +9606,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 120,
       "mini_bash_calls": 59,
+      "mini_tool_call_rounds": 59,
+      "mini_tool_calls": 59,
       "mini_total_tokens": 1094810
     },
     {
@@ -8553,6 +9624,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 26,
       "mini_bash_calls": 12,
+      "mini_tool_call_rounds": 12,
+      "mini_tool_calls": 12,
       "mini_total_tokens": 275639
     },
     {
@@ -8569,6 +9642,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 38,
       "mini_bash_calls": 18,
+      "mini_tool_call_rounds": 18,
+      "mini_tool_calls": 18,
       "mini_total_tokens": 192935
     },
     {
@@ -8585,6 +9660,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 50,
       "mini_bash_calls": 24,
+      "mini_tool_call_rounds": 24,
+      "mini_tool_calls": 24,
       "mini_total_tokens": 369628
     },
     {
@@ -8601,6 +9678,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 36,
       "mini_bash_calls": 17,
+      "mini_tool_call_rounds": 17,
+      "mini_tool_calls": 17,
       "mini_total_tokens": 144964
     },
     {
@@ -8617,6 +9696,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 188711
     },
     {
@@ -8633,6 +9714,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 61879
     },
     {
@@ -8649,6 +9732,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 76,
       "mini_bash_calls": 37,
+      "mini_tool_call_rounds": 37,
+      "mini_tool_calls": 37,
       "mini_total_tokens": 621191
     },
     {
@@ -8665,6 +9750,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 34,
       "mini_bash_calls": 16,
+      "mini_tool_call_rounds": 16,
+      "mini_tool_calls": 16,
       "mini_total_tokens": 106603
     },
     {
@@ -8681,6 +9768,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 54,
       "mini_bash_calls": 26,
+      "mini_tool_call_rounds": 26,
+      "mini_tool_calls": 26,
       "mini_total_tokens": 270312
     },
     {
@@ -8697,6 +9786,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 42,
       "mini_bash_calls": 20,
+      "mini_tool_call_rounds": 20,
+      "mini_tool_calls": 20,
       "mini_total_tokens": 178380
     },
     {
@@ -8713,6 +9804,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 22,
       "mini_bash_calls": 10,
+      "mini_tool_call_rounds": 10,
+      "mini_tool_calls": 10,
       "mini_total_tokens": 47961
     },
     {
@@ -8729,6 +9822,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 20,
       "mini_bash_calls": 9,
+      "mini_tool_call_rounds": 9,
+      "mini_tool_calls": 9,
       "mini_total_tokens": 28843
     },
     {
@@ -8745,6 +9840,8 @@
       "mini_trajectory_exists": true,
       "mini_messages": 44,
       "mini_bash_calls": 21,
+      "mini_tool_call_rounds": 21,
+      "mini_tool_calls": 21,
       "mini_total_tokens": 191920
     }
   ]

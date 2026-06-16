@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import json
+import re
 import statistics
 from collections import Counter, defaultdict
 from datetime import datetime
@@ -44,6 +45,13 @@ def summarize(values: list[float] | list[int]) -> dict[str, float | int | None]:
         "min": min(values),
         "max": max(values),
     }
+
+
+def _token_count(value: Any) -> int:
+    text = str(value or "")
+    if not text:
+        return 0
+    return len(re.findall(r"\w+|[^\w\s]", text, flags=re.UNICODE))
 
 
 def pct(value: int, total: int) -> float:
@@ -132,6 +140,142 @@ def trajectory_stats(path: Path) -> dict[str, Any]:
     }
 
 
+def parse_json_arguments(value: Any) -> dict[str, Any] | None:
+    if isinstance(value, dict):
+        return value
+    text = str(value or "").strip()
+    if not text.startswith("{"):
+        return None
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+def mini_tool_stats(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {
+            "exists": False,
+            "tool_call_rounds": 0,
+            "tool_calls": [],
+            "tool_error_count": 0,
+            "tool_validation_error_count": 0,
+            "tool_name_counts": {},
+            "tool_argument_chars": summarize([]),
+            "tool_argument_tokens": summarize([]),
+            "tool_observation_chars": summarize([]),
+            "tool_observation_tokens": summarize([]),
+            "tool_name_stats": {},
+        }
+
+    data = load_json(path)
+    messages = data.get("messages") or []
+    observations_by_call_id: dict[str, str] = {}
+    tool_calls: list[dict[str, Any]] = []
+    tool_call_rounds = 0
+    tool_error_count = 0
+    tool_validation_error_count = 0
+    tool_name_counts = Counter()
+    tool_argument_chars: list[int] = []
+    tool_argument_tokens: list[int] = []
+    tool_observation_chars: list[int] = []
+    tool_observation_tokens: list[int] = []
+    tool_name_argument_chars: dict[str, list[int]] = defaultdict(list)
+    tool_name_argument_tokens: dict[str, list[int]] = defaultdict(list)
+    tool_name_observation_chars: dict[str, list[int]] = defaultdict(list)
+    tool_name_observation_tokens: dict[str, list[int]] = defaultdict(list)
+
+    for message in messages:
+        if not isinstance(message, dict):
+            continue
+        if message.get("type") == "function_call_output":
+            call_id = str(message.get("call_id") or "")
+            extra = message.get("extra") if isinstance(message.get("extra"), dict) else {}
+            output_text = str(message.get("output") or extra.get("raw_output") or "")
+            if call_id:
+                observations_by_call_id[call_id] = output_text
+            continue
+        if message.get("object") != "response":
+            continue
+
+        outputs = message.get("output") or []
+        function_calls = [
+            output
+            for output in outputs
+            if isinstance(output, dict) and output.get("type") == "function_call"
+        ]
+        if function_calls:
+            tool_call_rounds += 1
+
+        for call in function_calls:
+            name = str(call.get("name") or "unknown")
+            arguments = parse_json_arguments(call.get("arguments"))
+            argument_text = (
+                json.dumps(arguments, ensure_ascii=False)
+                if arguments is not None
+                else str(call.get("arguments") or "")
+            )
+            call_id = str(call.get("call_id") or "")
+            observation_text = observations_by_call_id.get(call_id, "")
+            arg_chars = len(argument_text)
+            arg_tokens = _token_count(argument_text)
+            obs_chars = len(observation_text)
+            obs_tokens = _token_count(observation_text)
+            is_error = "[error]" in observation_text or "Validation failed for tool" in observation_text
+            is_validation_error = "Validation failed for tool" in observation_text
+
+            tool_name_counts[name] += 1
+            tool_argument_chars.append(arg_chars)
+            tool_argument_tokens.append(arg_tokens)
+            tool_observation_chars.append(obs_chars)
+            tool_observation_tokens.append(obs_tokens)
+            tool_name_argument_chars[name].append(arg_chars)
+            tool_name_argument_tokens[name].append(arg_tokens)
+            tool_name_observation_chars[name].append(obs_chars)
+            tool_name_observation_tokens[name].append(obs_tokens)
+
+            if is_error:
+                tool_error_count += 1
+            if is_validation_error:
+                tool_validation_error_count += 1
+
+            tool_calls.append(
+                {
+                    "name": name,
+                    "argument_chars": arg_chars,
+                    "argument_tokens": arg_tokens,
+                    "observation_chars": obs_chars,
+                    "observation_tokens": obs_tokens,
+                    "is_error": is_error,
+                    "is_validation_error": is_validation_error,
+                }
+            )
+
+    return {
+        "exists": True,
+        "tool_call_rounds": tool_call_rounds,
+        "tool_calls": tool_calls,
+        "tool_error_count": tool_error_count,
+        "tool_validation_error_count": tool_validation_error_count,
+        "tool_name_counts": dict(tool_name_counts.most_common()),
+        "tool_argument_chars": summarize(tool_argument_chars),
+        "tool_argument_tokens": summarize(tool_argument_tokens),
+        "tool_observation_chars": summarize(tool_observation_chars),
+        "tool_observation_tokens": summarize(tool_observation_tokens),
+        "tool_name_stats": {
+            name: {
+                "count": count,
+                "argument_chars": summarize(tool_name_argument_chars[name]),
+                "argument_tokens": summarize(tool_name_argument_tokens[name]),
+                "observation_chars": summarize(tool_name_observation_chars[name]),
+                "observation_tokens": summarize(tool_name_observation_tokens[name]),
+            }
+            for name, count in tool_name_counts.most_common()
+        },
+    }
+
+
 def analyze(job_dir: Path) -> dict[str, Any]:
     job_result = load_json(job_dir / "result.json")
     trial_paths = sorted(path for path in job_dir.glob("*/result.json"))
@@ -148,6 +292,19 @@ def analyze(job_dir: Path) -> dict[str, Any]:
     mini_messages: list[int] = []
     assistant_responses: list[int] = []
     bash_calls: list[int] = []
+    tool_call_rounds: list[int] = []
+    tool_calls_per_trial: list[int] = []
+    tool_argument_chars: list[int] = []
+    tool_argument_tokens: list[int] = []
+    tool_observation_chars: list[int] = []
+    tool_observation_tokens: list[int] = []
+    tool_name_counts = Counter()
+    tool_name_argument_chars: dict[str, list[int]] = defaultdict(list)
+    tool_name_argument_tokens: dict[str, list[int]] = defaultdict(list)
+    tool_name_observation_chars: dict[str, list[int]] = defaultdict(list)
+    tool_name_observation_tokens: dict[str, list[int]] = defaultdict(list)
+    tool_error_count = 0
+    tool_validation_error_count = 0
     input_tokens: list[int] = []
     cached_tokens: list[int] = []
     output_tokens: list[int] = []
@@ -174,6 +331,7 @@ def analyze(job_dir: Path) -> dict[str, Any]:
         sharegpt_path = trial_dir / "agent" / "sharegpt.json"
         trajectory_path = trial_dir / "agent" / "trajectory.json"
         mini_stats = trajectory_stats(mini_path)
+        tool_stats = mini_tool_stats(mini_path)
 
         projects[project]["total"] += 1
         if exception_type:
@@ -209,6 +367,27 @@ def analyze(job_dir: Path) -> dict[str, Any]:
             output_tokens.append(int(mini_stats["output_tokens"]))
             total_tokens.append(int(mini_stats["total_tokens"]))
             trajectory_costs.append(float(mini_stats["cost"]))
+        if tool_stats["exists"]:
+            tool_call_rounds.append(int(tool_stats["tool_call_rounds"]))
+            calls = tool_stats["tool_calls"] or []
+            tool_calls_per_trial.append(len(calls))
+            tool_error_count += int(tool_stats["tool_error_count"])
+            tool_validation_error_count += int(tool_stats["tool_validation_error_count"])
+            for name, count in (tool_stats["tool_name_counts"] or {}).items():
+                tool_name_counts[name] += int(count)
+            for tool_call in calls:
+                name = str(tool_call.get("name") or "unknown")
+                tool_argument_chars.append(int(tool_call.get("argument_chars") or 0))
+                tool_argument_tokens.append(int(tool_call.get("argument_tokens") or 0))
+                tool_observation_chars.append(int(tool_call.get("observation_chars") or 0))
+                tool_observation_tokens.append(int(tool_call.get("observation_tokens") or 0))
+                tool_name_argument_chars[name].append(int(tool_call.get("argument_chars") or 0))
+                tool_name_argument_tokens[name].append(int(tool_call.get("argument_tokens") or 0))
+                tool_name_observation_chars[name].append(int(tool_call.get("observation_chars") or 0))
+                tool_name_observation_tokens[name].append(int(tool_call.get("observation_tokens") or 0))
+        else:
+            tool_call_rounds.append(0)
+            tool_calls_per_trial.append(0)
 
         trials.append(
             {
@@ -225,6 +404,8 @@ def analyze(job_dir: Path) -> dict[str, Any]:
                 "mini_trajectory_exists": mini_path.exists(),
                 "mini_messages": mini_stats["messages"],
                 "mini_bash_calls": mini_stats["bash_calls"],
+                "mini_tool_call_rounds": tool_stats["tool_call_rounds"],
+                "mini_tool_calls": len(tool_stats["tool_calls"] or []),
                 "mini_total_tokens": mini_stats["total_tokens"],
             }
         )
@@ -276,6 +457,30 @@ def analyze(job_dir: Path) -> dict[str, Any]:
             "mini_messages": summarize(mini_messages),
             "assistant_responses": summarize(assistant_responses),
             "bash_calls": summarize(bash_calls),
+            "tool_call_rounds": summarize(tool_call_rounds),
+            "tool_calls": summarize(tool_calls_per_trial),
+        },
+        "tool_calls": {
+            "tool_call_rounds": summarize(tool_call_rounds),
+            "tool_calls_per_trial": summarize(tool_calls_per_trial),
+            "tool_calls_total": sum(tool_calls_per_trial),
+            "tool_error_count": tool_error_count,
+            "tool_validation_error_count": tool_validation_error_count,
+            "tool_name_counts": dict(tool_name_counts.most_common()),
+            "tool_argument_chars": summarize(tool_argument_chars),
+            "tool_argument_tokens": summarize(tool_argument_tokens),
+            "tool_observation_chars": summarize(tool_observation_chars),
+            "tool_observation_tokens": summarize(tool_observation_tokens),
+            "tool_name_stats": {
+                name: {
+                    "count": count,
+                    "argument_chars": summarize(tool_name_argument_chars[name]),
+                    "argument_tokens": summarize(tool_name_argument_tokens[name]),
+                    "observation_chars": summarize(tool_name_observation_chars[name]),
+                    "observation_tokens": summarize(tool_name_observation_tokens[name]),
+                }
+                for name, count in tool_name_counts.most_common()
+            },
         },
         "tokens": {
             "input": summarize(input_tokens),
@@ -309,9 +514,13 @@ def write_markdown(report: dict[str, Any], path: Path) -> None:
     perf = report["performance"]
     artifacts = report["artifacts"]
     traces = report["trace_lengths"]
+    tool_calls = report["tool_calls"]
     tokens = report["tokens"]
     costs = report["costs"]
     timing = report["timing"]
+
+    def stat_text(stats: dict[str, Any]) -> str:
+        return f"{stats['min']} / {stats['max']} / {stats['mean']} / {stats['median']}"
 
     project_rows = []
     for name, stats in report["project_summary"].items():
@@ -384,6 +593,32 @@ def write_markdown(report: dict[str, Any], path: Path) -> None:
         f"- Mini messages mean/median/max: {traces['mini_messages']['mean']} / {traces['mini_messages']['median']} / {traces['mini_messages']['max']}",
         f"- Assistant responses mean/median/max: {traces['assistant_responses']['mean']} / {traces['assistant_responses']['median']} / {traces['assistant_responses']['max']}",
         f"- Bash calls mean/median/max: {traces['bash_calls']['mean']} / {traces['bash_calls']['median']} / {traces['bash_calls']['max']}",
+        "",
+        "## Tool Calls",
+        "",
+        f"- Tool call rounds min/max/mean/median: {stat_text(traces['tool_call_rounds'])}",
+        f"- Tool calls total: {tool_calls['tool_calls_total']}",
+        f"- Tool calls per trial min/max/mean/median: {stat_text(tool_calls['tool_calls_per_trial'])}",
+        f"- Tool argument chars min/max/mean/median: {stat_text(tool_calls['tool_argument_chars'])}",
+        f"- Tool argument tokens min/max/mean/median: {stat_text(tool_calls['tool_argument_tokens'])}",
+        f"- Tool observation chars min/max/mean/median: {stat_text(tool_calls['tool_observation_chars'])}",
+        f"- Tool observation tokens min/max/mean/median: {stat_text(tool_calls['tool_observation_tokens'])}",
+        f"- Tool error count: {tool_calls['tool_error_count']}",
+        f"- Tool validation error count: {tool_calls['tool_validation_error_count']}",
+        "",
+        "### Tool Counts",
+        "",
+        "| Tool | Count | Arg tokens min/max/mean/median | Observation tokens min/max/mean/median |",
+        "| --- | ---: | ---: | ---: |",
+        *[
+            "| {name} | {count} | {arg_tokens} | {obs_tokens} |".format(
+                name=name,
+                count=stats["count"],
+                arg_tokens=stat_text(stats["argument_tokens"]),
+                obs_tokens=stat_text(stats["observation_tokens"]),
+            )
+            for name, stats in tool_calls["tool_name_stats"].items()
+        ],
         "",
         "## Tokens",
         "",

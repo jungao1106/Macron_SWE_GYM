@@ -2,6 +2,10 @@
 .env.*
 !.env.example
 
+.venv/
+.venv*/
+.cache/
+
 __pycache__/
 *.py[cod]
 *$py.class
@@ -13,7 +17,13 @@ __pycache__/
 logs/
 run_logs/
 jobs/
+jobs-*/
 backups/
+data/
+results/
+traces/
+skills/
+global_skills/
 
 *.log
 *.out

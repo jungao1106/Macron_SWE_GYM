@@ -2,7 +2,7 @@
 
 Runs SWE-Bench Verified with:
 
-- Novita, MiroMind, Macaron GPT 5.5, or Tinker as backend model providers.
+- Novita, Mindlab, MiroMind, Macaron GPT 5.5, or Tinker as backend model providers.
 - Pi or mini-SWE-agent as the coding agent layer.
 - Harbor as the benchmark harness.
 - E2B as the sandbox provider with concurrency 10 by default.
@@ -31,7 +31,7 @@ mini-SWE-agent traces include:
 This repo is a thin experiment runner around Harbor. The usual flow is:
 
 1. Configure runtime defaults in `.env`.
-   This chooses the agent (`AGENT_TYPE`), model provider (`LLM_PROVIDER`), provider credentials, E2B namespace, concurrency, and default dataset.
+   This chooses the agent (`AGENT_TYPE`), model provider (`LLM_PROVIDER`), provider credentials, E2B namespace, concurrency, and default dataset. Keep `HARBOR_DATASET` pinned to a dataset revision so Harbor does not silently follow a republished `latest`.
 
 2. Start a job with `scripts/run_benchmark.py`.
    The script loads `.env`, resolves provider capabilities from `providers/specs.py`, applies any CLI overrides such as `--job-name`, `--n-tasks`, and `--concurrency`, then builds a Harbor `JobConfig`.
@@ -40,7 +40,7 @@ This repo is a thin experiment runner around Harbor. The usual flow is:
    These files are run snapshots. They record the model, agent, dataset, E2B settings, timeout settings, and concurrency used for that job. They are useful for audit and reproducibility, but the normal entry point is still `scripts/run_benchmark.py`.
 
 4. Harbor resolves SWE-Bench tasks from the dataset.
-   Tasks are cached under `.cache/harbor_tasks/`. Each task contains the issue instruction, solution reference, tests, and environment Dockerfile.
+   Tasks are cached under `.cache/harbor_tasks/`. Each task contains the issue instruction, solution reference, tests, and environment Dockerfile. The default SWE-Bench Verified dataset is pinned to revision `2`, whose dataset content hash is `b934b0cc3dc800fe945eaf9f1623329db97ee3133c706d20644524c7759fb341`, so repeated runs reuse the same task refs and E2B template names.
 
 5. Harbor creates one trial per task under `jobs/<job-name>/<trial-name>/`.
    Each trial gets its own config, sandbox, agent logs, verifier logs, result file, and trace files.
@@ -59,6 +59,11 @@ This repo is a thin experiment runner around Harbor. The usual flow is:
 
 10. After the job finishes, run `scripts/analyze_results.py`.
     Analysis outputs go to `analysis/<job>_analysis.json` and `analysis/<job>_analysis.md`.
+
+11. For Pi tool-use experiments, run `scripts/check_pi_tool_harness.py`.
+    This harness checks Pi `tool_execution_start` events for required arguments
+    and validation errors, and flags unparsed assistant text that tries to
+    serialize tool calls without becoming Pi tool events.
 
 The core data path looks like this:
 
@@ -120,12 +125,14 @@ Set `LLM_PROVIDER` to choose the backend provider. The runner combines this with
 - `LLM_PROVIDER=miromind` uses `MIROMIND_API_KEY`, `MIROMIND_BASE_URL`, and `MIROMIND_MODEL`.
 - `LLM_PROVIDER=macaron` uses `MACARON_API_KEY`, `MACARON_BASE_URL`, and `MACARON_MODEL`.
 - `LLM_PROVIDER=tinker` uses `TINKER_API_KEY`, `TINKER_BASE_URL`, and `TINKER_MODEL`.
+- `LLM_PROVIDER=mindlab` uses `MINDLAB_API_KEY`, `MINDLAB_BASE_URL`, and `MINDLAB_MODEL`.
 
 Current provider compatibility profiles:
 
 - `novita`: GLM 5.1 path. mini defaults to `litellm_textbased`; Pi enables the OpenAI-compatible ZAI thinking-text format.
-- `macaron`: GPT 5.5 path. mini defaults to `litellm_response` with the Responses API shape.
-- `tinker`: Nemotron/SFT path. mini defaults to `litellm_textbased`; Pi keeps the Tinker OpenAI-compatible tool-call handling.
+- `mindlab`: local/OpenAI-compatible GLM path. Pi uses `qwen-chat-template` thinking compatibility, so `PI_THINKING=off` sends `chat_template_kwargs.enable_thinking=false`.
+- `macaron`: GPT 5.5 path. mini defaults to `litellm_response`; Pi uses `openai-responses`. Both paths target the Responses API shape.
+- `tinker`: Nemotron/SFT path. mini defaults to `litellm_textbased`; Pi uses the same native tool-call harness and prompt shape as `novita`.
 - `miromind`: generic OpenAI-compatible path unless overridden.
 
 Use `MINI_MODEL_CLASS` or `--mini-model-class` only when intentionally testing a different mini-SWE-agent transport.
@@ -156,6 +163,26 @@ TINKER_CONTEXT_WINDOW=262144
 TINKER_MAX_TOKENS=32000
 ```
 
+For Mindlab GLM 5.1 through the local OpenAI-compatible endpoint:
+
+```bash
+LLM_PROVIDER=mindlab
+MINDLAB_BASE_URL=http://104.40.8.230:7777/v1
+MINDLAB_MODEL=swebench-glm51-sft-r16-1epoch-20260516T0059CST-ba54e04851fe-20260518T062206Z-fp8-atom
+MINDLAB_API_KEY=mindlab-local-no-auth
+```
+
+One-off provider overrides can be passed without editing `.env`:
+
+```bash
+AGENT_TYPE=pi python scripts/run_benchmark.py \
+  --provider mindlab \
+  --provider-base-url http://104.40.8.230:7777/v1 \
+  --provider-model swebench-glm51-sft-r16-1epoch-20260516T0059CST-ba54e04851fe-20260518T062206Z-fp8-atom \
+  --n-tasks 1 \
+  --job-name smoke_pi_mindlab_glm51
+```
+
 Use the SFT sampler checkpoint as the test group by swapping only `TINKER_MODEL`:
 
 ```bash
@@ -174,13 +201,15 @@ The Macaron endpoint has been configured for the OpenAI Responses API shape. For
 configs/mini-swe-agent/macaron_gpt55.yaml
 ```
 
-The unified Harbor runner uses the same settings internally when `AGENT_TYPE=mini` and `LLM_PROVIDER=macaron`: `model_class: litellm_response`, `custom_llm_provider: openai`, and `api_base: https://pi-api.macaron.xin`, matching the documented mini-SWE-agent/LiteLLM override pattern for custom OpenAI-compatible endpoints.
+The unified Harbor runner uses the same settings internally when `AGENT_TYPE=mini` and `LLM_PROVIDER=macaron`: `model_class: litellm_response`, `custom_llm_provider: openai`, and `api_base: https://pi-api.macaron.xin`, matching the documented mini-SWE-agent/LiteLLM override pattern for custom OpenAI-compatible endpoints. For `AGENT_TYPE=pi`, the runner configures Pi's model entry with `api: openai-responses` and fails fast if Macaron returns without any Pi tool calls, so empty no-op traces are not counted as valid runs.
 
 Set `E2B_TEMPLATE_NAMESPACE` to your E2B team namespace. The default in this repo is `anchen1011`; without this, SWE-Bench task names such as `swe-bench/...` can produce E2B namespace errors.
 
 `E2B_PI_TEMPLATE_SUFFIX` defaults to `pi_c6d7003a`. When a matching template such as `anchen1011/swe-bench__sphinx-doc__sphinx-8621__469ee09b__pi_c6d7003a` already exists, the runner reuses it before trying to build a new task template.
 
 `E2B_SANDBOX_TIMEOUT_SEC` defaults to `3600`, which is E2B's current maximum sandbox timeout.
+
+SWE-Bench Verified task configs in this runner resolve to `cpus=1`, `memory_mb=4096`, and `storage_mb=10240`. The runner now applies those as explicit E2B override defaults through `E2B_OVERRIDE_CPUS`, `E2B_OVERRIDE_MEMORY_MB`, and `E2B_OVERRIDE_STORAGE_MB`, or via `--override-cpus`, `--override-memory-mb`, and `--override-storage-mb`. For larger batch runs where verifier installs or repo build artifacts hit resource limits, a conservative setting is `--override-memory-mb 8192 --override-storage-mb 20480`. With the current E2B Python SDK, template creation exposes CPU and memory directly; storage remains recorded in the Harbor task config and should be treated as best-effort unless E2B exposes template disk sizing in the SDK/API used here.
 
 Timeouts are centralized in `.env` and can still be overridden on the CLI:
 
@@ -203,6 +232,17 @@ Smoke test one task first:
 
 ```bash
 python scripts/run_benchmark.py --n-tasks 1 --job-name smoke_pi_miromind
+```
+
+Smoke test Pi/Tinker tool calling on a known task and gate the trace:
+
+```bash
+AGENT_TYPE=pi LLM_PROVIDER=tinker python scripts/run_benchmark.py \
+  --include-task-name swe-bench/django__django-12406 \
+  --job-name smoke_pi_tinker_tool_harness
+
+python scripts/check_pi_tool_harness.py \
+  --job-dir jobs/smoke_pi_tinker_tool_harness
 ```
 
 Smoke test a specific agent/provider combination:

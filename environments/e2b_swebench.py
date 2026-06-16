@@ -1,3 +1,4 @@
+import asyncio
 import os
 import re
 from pathlib import Path
@@ -11,10 +12,44 @@ from e2b.api.client.api.templates import get_templates
 from e2b.api.client.models import Error
 from e2b.api.client_async import get_api_client
 from e2b.connection_config import ConnectionConfig
-from e2b.exceptions import SandboxException, TemplateException
-from tenacity import retry, stop_after_attempt, wait_exponential
+from e2b.exceptions import (
+    BuildException,
+    RateLimitException,
+    SandboxException,
+    TemplateException,
+)
+from tenacity import (
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
 
 from harbor.environments.e2b import E2BEnvironment
+from harbor.models.trial.paths import EnvironmentPaths
+
+
+_TEMPLATE_BUILD_SEMAPHORE: asyncio.Semaphore | None = None
+_TEMPLATE_BUILD_SEMAPHORE_LIMIT: int | None = None
+
+
+def _template_build_semaphore() -> asyncio.Semaphore:
+    global _TEMPLATE_BUILD_SEMAPHORE, _TEMPLATE_BUILD_SEMAPHORE_LIMIT
+
+    try:
+        limit = int(os.getenv("E2B_TEMPLATE_BUILD_CONCURRENCY", "20"))
+    except ValueError:
+        limit = 20
+    limit = max(1, limit)
+
+    if (
+        _TEMPLATE_BUILD_SEMAPHORE is None
+        or _TEMPLATE_BUILD_SEMAPHORE_LIMIT != limit
+    ):
+        _TEMPLATE_BUILD_SEMAPHORE = asyncio.Semaphore(limit)
+        _TEMPLATE_BUILD_SEMAPHORE_LIMIT = limit
+
+    return _TEMPLATE_BUILD_SEMAPHORE
 
 
 def _safe_template_segment(value: str) -> str:
@@ -29,6 +64,21 @@ def _strip_dockerfile_comments(content: str) -> str:
         if not stripped or stripped.startswith("#"):
             continue
         lines.append(line)
+    return "\n".join(lines) + "\n"
+
+
+def _normalize_from_image_refs(content: str) -> str:
+    lines: list[str] = []
+    for line in content.splitlines():
+        match = re.match(r"^(\s*FROM\s+(?:--platform=\S+\s+)?)(\S+)(.*)$", line)
+        if not match:
+            lines.append(line)
+            continue
+
+        prefix, image_ref, suffix = match.groups()
+        # Docker image repository names must be lowercase. SWE-Gym includes
+        # instance ids such as Project-MONAI in generated image names.
+        lines.append(f"{prefix}{image_ref.lower()}{suffix}")
     return "\n".join(lines) + "\n"
 
 
@@ -113,12 +163,13 @@ class E2BSwebenchEnvironment(E2BEnvironment):
             timeout = int(raw_value) if raw_value is not None else 3600
         except (TypeError, ValueError):
             timeout = 3600
-        return max(60, min(timeout, 3600))
+        return max(60, min(timeout, 7200))
 
     def _dockerfile_content_or_path(self) -> str:
         content = self._environment_definition_path.read_text(encoding="utf-8")
         if self._strip_dockerfile_comments:
             content = _strip_dockerfile_comments(content)
+        content = _normalize_from_image_refs(content)
         if self._template_name == self._pi_template_name():
             content = content.rstrip() + "\n\n" + PI_TEMPLATE_INSTALL_DOCKERFILE
         return content
@@ -154,8 +205,11 @@ class E2BSwebenchEnvironment(E2BEnvironment):
         return False
 
     @retry(
-        stop=stop_after_attempt(2),
-        wait=wait_exponential(multiplier=1, min=1, max=10),
+        retry=retry_if_exception_type(
+            (BuildException, RateLimitException, TemplateException)
+        ),
+        stop=stop_after_attempt(5),
+        wait=wait_exponential(multiplier=2, min=2, max=60),
         reraise=True,
     )
     async def _create_template(self):
@@ -170,12 +224,13 @@ class E2BSwebenchEnvironment(E2BEnvironment):
                 dockerfile_content_or_path=self._dockerfile_content_or_path(),
             )
 
-        await AsyncTemplate.build(
-            template=template,
-            name=self._template_name,
-            cpu_count=self.task_env_config.cpus,
-            memory_mb=self.task_env_config.memory_mb,
-        )
+        async with _template_build_semaphore():
+            await AsyncTemplate.build(
+                template=template,
+                name=self._template_name,
+                cpu_count=self.task_env_config.cpus,
+                memory_mb=self.task_env_config.memory_mb,
+            )
 
     @retry(
         stop=stop_after_attempt(2),
@@ -196,8 +251,24 @@ class E2BSwebenchEnvironment(E2BEnvironment):
                 allow_internet_access=self.task_env_config.allow_internet,
             )
         except SandboxException as exc:
-            if not self._is_pi_template() or "tag 'default' does not exist" not in str(exc):
+            missing_default_tag = "tag 'default' does not exist" in str(exc)
+            if not missing_default_tag:
                 raise
+
+            if not self._is_pi_template():
+                self.logger.warning(
+                    "Template %s exists but is not launchable; rebuilding: %s",
+                    self._template_name,
+                    exc,
+                )
+                await self._create_template()
+                self._sandbox = await AsyncSandbox.create(
+                    template=self._template_name,
+                    metadata=metadata,
+                    timeout=self._sandbox_timeout_sec,
+                    allow_internet_access=self.task_env_config.allow_internet,
+                )
+                return
 
             fallback_template = self._fallback_template_name()
             self.logger.warning(
@@ -209,12 +280,28 @@ class E2BSwebenchEnvironment(E2BEnvironment):
             self._template_name = fallback_template
             if not await self._template_exists_exact(fallback_template):
                 await self._create_template()
-            self._sandbox = await AsyncSandbox.create(
-                template=self._template_name,
-                metadata=metadata,
-                timeout=self._sandbox_timeout_sec,
-                allow_internet_access=self.task_env_config.allow_internet,
-            )
+            try:
+                self._sandbox = await AsyncSandbox.create(
+                    template=self._template_name,
+                    metadata=metadata,
+                    timeout=self._sandbox_timeout_sec,
+                    allow_internet_access=self.task_env_config.allow_internet,
+                )
+            except SandboxException as fallback_exc:
+                if "tag 'default' does not exist" not in str(fallback_exc):
+                    raise
+                self.logger.warning(
+                    "Fallback template %s exists but is not launchable; rebuilding: %s",
+                    self._template_name,
+                    fallback_exc,
+                )
+                await self._create_template()
+                self._sandbox = await AsyncSandbox.create(
+                    template=self._template_name,
+                    metadata=metadata,
+                    timeout=self._sandbox_timeout_sec,
+                    allow_internet_access=self.task_env_config.allow_internet,
+                )
 
     async def _does_template_exist(self) -> bool:
         config = ConnectionConfig()
@@ -236,19 +323,12 @@ class E2BSwebenchEnvironment(E2BEnvironment):
                 for alias in template.aliases
                 if "/" not in alias
             )
-        pi_template_name = self._pi_template_name()
-        if pi_template_name:
-            if pi_template_name in available_names:
-                self._template_name = pi_template_name
-                return True
-            self._template_name = pi_template_name
-            return False
 
         for candidate in self._candidate_template_names():
             if candidate in available_names:
                 self._template_name = candidate
                 return True
-        self._template_name = self._build_template_name()
+        self._template_name = self._pi_template_name() or self._build_template_name()
         return False
 
     def _workdir_from_dockerfile(self) -> str | None:
@@ -263,4 +343,58 @@ class E2BSwebenchEnvironment(E2BEnvironment):
                 if instruction.get("instruction") == "WORKDIR"
             ),
             None,
+        )
+
+    async def _wait_for_sandbox_ready(self) -> None:
+        if not self._sandbox:
+            raise RuntimeError("Sandbox not found but was just created.")
+
+        last_error: Exception | None = None
+        for _ in range(30):
+            try:
+                if await self._sandbox.is_running(request_timeout=5):
+                    return
+            except Exception as exc:  # pragma: no cover - network/provider dependent
+                last_error = exc
+            await asyncio.sleep(1)
+
+        if last_error is not None:
+            raise last_error
+        raise RuntimeError("E2B sandbox did not become ready in time.")
+
+    @retry(
+        stop=stop_after_attempt(5),
+        wait=wait_exponential(multiplier=1, min=1, max=10),
+        reraise=True,
+    )
+    async def _prepare_runtime_dirs(self) -> None:
+        if not self._sandbox:
+            raise RuntimeError("Sandbox not found. Please start the environment first.")
+
+        try:
+            await self._sandbox.files.make_dir(str(EnvironmentPaths.agent_dir))
+            await self._sandbox.files.make_dir(str(EnvironmentPaths.verifier_dir))
+        except Exception:
+            # E2B can occasionally return a sandbox whose HTTP/2 filesystem channel
+            # is not fully ready yet. Reconnect the sandbox client before retrying.
+            await self._sandbox.connect(timeout=self._sandbox_timeout_sec)
+            raise
+
+    async def start(self, force_build: bool):
+        if force_build or not await self._does_template_exist():
+            self.logger.debug("Creating template %s", self._template_name)
+            await self._create_template()
+
+        await self._create_sandbox()
+
+        if not self._sandbox:
+            raise RuntimeError(
+                "Sandbox not found but was just created. This should never happen."
+            )
+
+        await self._wait_for_sandbox_ready()
+        await self._prepare_runtime_dirs()
+
+        await self.exec(
+            f"chmod 777 {EnvironmentPaths.agent_dir} {EnvironmentPaths.verifier_dir}"
         )
