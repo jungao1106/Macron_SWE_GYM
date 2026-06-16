@@ -86,6 +86,8 @@ The core data path looks like this:
 - `.env`: local secrets and default runtime settings. Do not commit real keys.
 - `.env.example`: safe template for expected environment variables.
 - `scripts/run_benchmark.py`: main Harbor/E2B runner.
+- `scripts/start_benchmark.sh`: launch a job detached in a tmux session, logging to `run_logs/<job>.out`.
+- `scripts/stop_benchmark.sh`: stop a job started with `start_benchmark.sh` by killing its tmux session.
 - `providers/`: provider compatibility profiles shared by Pi and mini agents.
 - `scripts/check_*`: provider endpoint smoke checks.
 - `scripts/analyze_results.py`: summarizes Harbor/Pi jobs into JSON and Markdown.
@@ -283,6 +285,30 @@ Full run with mini-SWE-agent and GLM 5.1:
 ```bash
 AGENT_TYPE=mini LLM_PROVIDER=novita JOB_NAME=full_mini_novita_glm51 python scripts/run_benchmark.py
 ```
+
+## Background runs
+
+`scripts/run_benchmark.py` runs in the foreground. To launch a job detached so
+it survives the shell, use `scripts/start_benchmark.sh`. It loads `.env`, names
+a tmux session after the job, and streams shell output to `run_logs/<job>.out` —
+the exact layout `scripts/monitor_benchmark_job.sh` polls.
+
+```bash
+# Default job (uses JOB_NAME or an AGENT_TYPE_LLM_PROVIDER default):
+scripts/start_benchmark.sh
+
+# Named job with extra run_benchmark.py args forwarded through:
+AGENT_TYPE=mini LLM_PROVIDER=macaron scripts/start_benchmark.sh \
+  --job-name full_mini_macaron_gpt55 --n-tasks 1
+
+# Watch progress, then stop early if needed:
+scripts/monitor_benchmark_job.sh full_mini_macaron_gpt55
+scripts/stop_benchmark.sh full_mini_macaron_gpt55
+```
+
+Attach to the live session with `tmux attach -t <job-name>`. When `python` is
+not on PATH (outside the `marcronv1` conda env), set `PYTHON=` to the
+interpreter, e.g. `PYTHON=python3 scripts/start_benchmark.sh`.
 
 Smoke matrix for the currently supported 2 x 3 combinations:
 
